@@ -44,12 +44,46 @@ button {
     border-radius: 25px;
     cursor: pointer;
     font-weight: bold;
+    margin:5px;
 }
 
+.highlight-box {
+    position: relative;
+}
+
+.highlight-circle {
+    position: absolute;
+    border: 3px solid #00d4ff;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    top: 40%;
+    left: 45%;
+    box-shadow: 0 0 15px #00d4ff;
+}
+
+.modal {
+    display:none;
+    position:fixed;
+    z-index:999;
+    padding-top:50px;
+    left:0; top:0;
+    width:100%; height:100%;
+    background:black;
+}
+
+.modal img {
+    margin:auto;
+    display:block;
+    width:80%;
+}
 </style>
 </head>
+
 <body>
-  <section class="section" style="text-align:center;">
+
+<!-- HERO -->
+<section class="section" style="text-align:center;">
     <h1 class="glow">HIATUS HERNIA</h1>
     <h2>Imaging on CT</h2>
 
@@ -61,11 +95,7 @@ button {
     <button onclick="scrollToSection()">Explore Case</button>
 </section>
 
-<script>
-function scrollToSection(){
-    window.scrollTo({ top: 600, behavior: 'smooth' });
-}
-</script>
+<!-- CLINICAL CASE -->
 <section class="section">
     <h2 class="glow">Clinical Case</h2>
 
@@ -82,6 +112,8 @@ function scrollToSection(){
         <h3>Are you sure only GERD & persistent pharyngitis?</h3>
     </div>
 </section>
+
+<!-- CT FINDINGS -->
 <section class="section">
     <h2 class="glow">CT Findings</h2>
 
@@ -93,6 +125,43 @@ function scrollToSection(){
         </ul>
     </div>
 </section>
+
+<!-- CT IMAGE -->
+<section class="section">
+    <h2 class="glow">CT Imaging</h2>
+
+    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
+
+        <div style="flex:1;">
+            <img src="ct1.jpg" alt="CT Scan"
+            style="width:100%; border-radius:15px; box-shadow:0 0 20px #00d4ff; cursor:pointer;"
+            onclick="openModal(this.src)">
+        </div>
+
+        <div style="flex:1;">
+            <div class="card">
+                <h3>Radiology Insight</h3>
+                <p>
+                Visualized herniation of gastric fundus above diaphragm 
+                with widened esophageal hiatus.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- HIGHLIGHT -->
+<section class="section">
+    <h2 class="glow">Lesion Highlight</h2>
+
+    <div class="highlight-box">
+        <img src="ct1.jpg" style="width:100%; border-radius:15px;">
+        <div class="highlight-circle"></div>
+    </div>
+</section>
+
+<!-- QUIZ -->
 <section class="section" style="text-align:center;">
     <h2 class="glow">Quiz</h2>
     <p>Which type of hiatus hernia?</p>
@@ -105,12 +174,7 @@ function scrollToSection(){
     <p id="result"></p>
 </section>
 
-<script>
-function answer(){
-    document.getElementById("result").innerHTML =
-    "Correct answer depends on CT detail (likely Type 3 - mixed)";
-}
-</script>
+<!-- DEFINITION & EPID -->
 <section class="section">
     <h2 class="glow">Definition</h2>
 
@@ -129,14 +193,18 @@ function answer(){
         </ul>
     </div>
 </section>
+
+<!-- TYPES -->
 <section class="section">
     <h2 class="glow">Types</h2>
 
     <div class="card">Type 1: Sliding (~95%)</div>
     <div class="card">Type 2: Paraesophageal</div>
     <div class="card">Type 3: Mixed</div>
-    <div class="card">Type 4: Complex (with other organs)</div>
+    <div class="card">Type 4: Complex</div>
 </section>
+
+<!-- CT FEATURES & TREATMENT -->
 <section class="section">
     <h2 class="glow">CT Features</h2>
 
@@ -155,6 +223,8 @@ function answer(){
         Asymptomatic → Conservative
     </div>
 </section>
+
+<!-- COMPLICATION -->
 <section class="section">
     <h2 class="glow">Complications</h2>
 
@@ -177,6 +247,8 @@ function answer(){
         </ul>
     </div>
 </section>
+
+<!-- CREDIT -->
 <section class="section" style="text-align:center;">
     <h2 class="glow">Credits</h2>
 
@@ -196,6 +268,31 @@ function answer(){
         © Radiology RS Mitra Plumbon
     </p>
 </section>
+
+<!-- MODAL -->
+<div id="imgModal" class="modal" onclick="closeModal()">
+    <img id="modalImg">
+</div>
+
+<script>
+function scrollToSection(){
+    window.scrollTo({ top: 600, behavior: 'smooth' });
+}
+
+function answer(){
+    document.getElementById("result").innerHTML =
+    "Most likely Type 3 (Mixed Hiatal Hernia)";
+}
+
+function openModal(src){
+    document.getElementById("imgModal").style.display="block";
+    document.getElementById("modalImg").src=src;
+}
+
+function closeModal(){
+    document.getElementById("imgModal").style.display="none";
+}
+</script>
 
 </body>
 </html>
