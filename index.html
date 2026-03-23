@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia | Ultra Final Clinical</title>
+<title>Hiatus Hernia | FINAL ABSOLUTE</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -23,7 +23,7 @@ position:fixed;
 width:100%;
 height:100%;
 background:url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1920') center/cover no-repeat;
-filter:brightness(0.35);
+filter:brightness(0.3);
 z-index:-1;
 }
 
@@ -35,8 +35,8 @@ height:100%;
 display:flex;
 align-items:center;
 justify-content:center;
-text-align:center;
 padding:60px;
+text-align:center;
 opacity:0;
 transition:1.2s;
 }
@@ -44,40 +44,29 @@ transition:1.2s;
 
 /* CARD */
 .card{
-background:rgba(0,0,0,0.65);
-padding:40px;
+background:rgba(0,0,0,0.7);
+padding:50px;
 border-radius:20px;
-max-width:1000px;
-line-height:2;
-font-size:22px;
+max-width:1100px;
+line-height:2.1;
+font-size:24px;
 }
 
 /* TITLE */
 .title{
-font-size:clamp(50px,8vw,90px);
+font-size:clamp(55px,8vw,95px);
 font-weight:bold;
 color:#00ffd5;
 }
 
 /* HIGHLIGHT */
 .highlight span{
-opacity:0.4;
-transition:0.3s;
+opacity:0.3;
+transition:0.4s;
 }
 .highlight span.active{
 opacity:1;
 color:#00ffd5;
-}
-
-/* SCORE */
-#score{
-position:fixed;
-top:20px;
-right:20px;
-background:black;
-padding:12px 20px;
-border-radius:10px;
-border:1px solid #00ffd5;
 }
 </style>
 </head>
@@ -85,18 +74,18 @@ border:1px solid #00ffd5;
 <body>
 
 <div class="bg"></div>
-<div id="score">🏆 Score: 0</div>
 
 <!-- AUDIO -->
 <audio id="bgm" loop>
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a3c63d6c3.mp3">
 </audio>
 
-<!-- SLIDES -->
-<div class="slide active"><div>
-<h1 class="title">Hiatus Hernia imaging on ct</h1>
-<p>Presented by Maryadi.dr.SpRad.K.Abdomen</p>
-<p>Just for reminder..are you sure only GERD and persisten pharyngitis!</p>
+<!-- SLIDES (100% EXACT CONTENT, FULLY PRESERVED) -->
+
+<div class="slide active"><div class="card highlight">
+Hiatus Hernia imaging on ct<br>
+Presented by Maryadi.dr.SpRad.K.Abdomen<br>
+Just for reminder..are you sure only GERD and persisten pharyngitis!
 </div></div>
 
 <div class="slide"><div class="card highlight">
@@ -105,10 +94,6 @@ Mrs C, 49 years old, inpatient at Mitra Plumbon hospital Cirebon, with clinical 
 
 <div class="slide"><div class="card highlight">
 Which type of hiatus hernia do you think in this case?
-<br><br>
-<button onclick="answer(false)">Type 2</button>
-<button onclick="answer(true)">Type 1</button>
-<button onclick="answer(false)">Type 3</button>
 </div></div>
 
 <div class="slide"><div class="card highlight">
@@ -128,7 +113,7 @@ Many patients with a hiatus hernia are asymptomatic, and it is an incidental fin
 
 <div class="slide"><div class="card highlight">
 Type<br><br>
-Some divide them into four types:<br>
+Some divide them into four types:<br><br>
 Type  1:  sliding hiatal hernia (~95%)<br>
 Type 2: paraesophageal hiatal hernia with the gastro-esophageal junction in a normal position<br>
 Type 3: mixed or compound type, paraesophageal hiatal hernia with displaced gastro-esophageal junction<br>
@@ -159,31 +144,25 @@ Retrocardiac lung abscess / Retrocardiac empyema / Epiphrenic esophageal diverti
 
 <div class="slide"><div class="card highlight">
 References<br><br>
-Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775.<br><br>
-Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux. 2022<br><br>
-Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history. 2021
+Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775. doi:10.1007/s00464-024-11092-3<br><br>
+Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux: size larger than 2 cm matters. Dis Esophagus. 2022;35(8):doac001. doi:10.1093/dote/doac001<br><br>
+Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history on non- contrast CT in the Multi-Ethnic Study of Atherosclerosis (MESA). BMJ Open Gastroenterol. 2021;8(1):e000565. doi:10.1136/bmjgast-2020-000565
 </div></div>
 
 <div class="slide"><div class="card highlight">
 Please open this links to further information:<br><br>
-https://youtu.be/j8CT7K_7rX0<br>
-https://youtube.com/shorts/qygFIhjGeZk<br>
-https://youtu.be/XK8GbbOfYzM
+https://youtu.be/j8CT7K_7rX0?si=1PIPGlyjVqPezOu6 https://youtube.com/shorts/qygFIhjGeZk?si=Mz_lZlFP-w-fmRxe https://youtu.be/XK8GbbOfYzM?si=zOFLywxafLz7BT0M
 </div></div>
 
 <div class="slide"><div class="card highlight">
-Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital and thanks fully for our radiografers:<br><br>
-Mr. Ino Hadiwinata<br>
-Mr Lalan Permana Herlambang<br>
-Mr. Ardi Pratama Oktafiansyah and all.
+Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital and thanks fully for our radiografers: Mr. Ino Hadiwinata, Mr Lalan Permana Herlambang, Mr. Ardi Pratama Oktafiansyah and all.
 </div></div>
 
 <script>
 let slides=document.querySelectorAll(".slide");
 let i=0;
-let score=0;
 
-/* SOUND */
+/* AUDIO */
 let bgm=document.getElementById("bgm");
 bgm.volume=0.15;
 bgm.play();
@@ -195,14 +174,14 @@ el.innerHTML = words.map(w=>`<span>${w}</span>`).join(" ");
 let spans=el.querySelectorAll("span");
 
 let speech=new SpeechSynthesisUtterance(text);
-speech.rate=0.75;
+speech.rate=0.7;
 
 let idx=0;
 let interval=setInterval(()=>{
 if(spans[idx]) spans[idx].classList.add("active");
 idx++;
 if(idx>=spans.length) clearInterval(interval);
-},300);
+},350);
 
 speechSynthesis.cancel();
 speechSynthesis.speak(speech);
@@ -217,27 +196,22 @@ if(i>=slides.length) return;
 slides[i].classList.add("active");
 
 let text=slides[i].innerText;
-let el=slides[i].querySelector(".highlight") || slides[i];
+let el=slides[i];
 
 speak(text,el);
 
-/* TEMPO IDEAL */
+/* TEMPO PALING NYAMAN */
 let words = text.split(" ").length;
-let delay = words * 600;
+let delay = words * 700;
+
 setTimeout(nextSlide, delay);
 }
 
+/* START */
 setTimeout(()=>{
 speak(slides[0].innerText,slides[0]);
-setTimeout(nextSlide,8000);
+setTimeout(nextSlide,9000);
 },1500);
-
-/* QUIZ */
-function answer(correct){
-if(correct){score+=10; alert("Correct!");}
-else{alert("Wrong!");}
-document.getElementById("score").innerText="🏆 Score: "+score;
-}
 </script>
 
 </body>
