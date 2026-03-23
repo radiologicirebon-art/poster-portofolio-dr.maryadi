@@ -4,214 +4,273 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia | FINAL ABSOLUTE</title>
+<title>Hiatus Hernia | Ultimate Experience</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
 body{
 margin:0;
 font-family:Calibri, sans-serif;
-background:black;
 color:white;
-overflow:hidden;
+overflow-x:hidden;
+background:black;
 }
 
-/* BACKGROUND */
+/* PROGRESS */
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:5px;
+background:#00ffd5;
+width:0%;
+z-index:999;
+}
+
+/* BG */
 .bg{
 position:fixed;
 width:100%;
 height:100%;
-background:url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1920') center/cover no-repeat;
+background:url('https://images.unsplash.com/photo-1581595219315-a187dd40c322?q=80&w=1920') center/cover no-repeat;
+z-index:-2;
 filter:brightness(0.3);
+}
+
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
 z-index:-1;
 }
 
-/* SLIDE */
-.slide{
-position:absolute;
-width:100%;
-height:100%;
+/* SECTION */
+.section{
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
 padding:60px;
 text-align:center;
-opacity:0;
-transition:1.2s;
 }
-.active{opacity:1;}
 
-/* CARD */
 .card{
-background:rgba(0,0,0,0.7);
-padding:50px;
+background:rgba(0,0,0,0.65);
+padding:40px;
 border-radius:20px;
-max-width:1100px;
-line-height:2.1;
-font-size:24px;
+max-width:1000px;
+line-height:2;
+font-size:22px;
 }
 
-/* TITLE */
 .title{
-font-size:clamp(55px,8vw,95px);
+font-size:clamp(50px,8vw,90px);
 font-weight:bold;
 color:#00ffd5;
 }
 
-/* HIGHLIGHT */
-.highlight span{
-opacity:0.3;
-transition:0.4s;
+/* AUTO CINEMA */
+#cinema{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px;
+transition:1s;
 }
-.highlight span.active{
-opacity:1;
-color:#00ffd5;
+
+.hiddenCinema{
+opacity:0;
+pointer-events:none;
 }
+
+.highlight span{opacity:0.3;}
+.highlight span.active{opacity:1;color:#00ffd5;}
 </style>
 </head>
 
 <body>
 
+<div id="progress"></div>
 <div class="bg"></div>
+<div class="overlay"></div>
 
 <!-- AUDIO -->
 <audio id="bgm" loop>
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a3c63d6c3.mp3">
 </audio>
 
-<!-- SLIDES (100% EXACT CONTENT, FULLY PRESERVED) -->
+<!-- 🎬 CINEMATIC INTRO -->
+<div id="cinema" class="highlight"></div>
 
-<div class="slide active"><div class="card highlight">
-Hiatus Hernia imaging on ct<br>
-Presented by Maryadi.dr.SpRad.K.Abdomen<br>
-Just for reminder..are you sure only GERD and persisten pharyngitis!
-</div></div>
+<!-- CONTENT START -->
+<section class="section">
+<div>
+<h1 class="title">Hiatus Hernia imaging on ct</h1>
+<p>Presented by Maryadi.dr.SpRad.K.Abdomen</p>
+<p>Just for reminder..are you sure only GERD and persisten pharyngitis!</p>
+</div>
+</section>
 
-<div class="slide"><div class="card highlight">
+<section class="section"><div class="card">
 Mrs C, 49 years old, inpatient at Mitra Plumbon hospital Cirebon, with clinical symptoms epigastric pain and vomiting. CT result demonstrated:
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
+<section class="section"><div class="card">
 Which type of hiatus hernia do you think in this case?
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Definition<br><br>
+<section class="section"><div class="card">
+Definition<br>
 Hiatus hernias occur when there is herniation of abdominal contents through the esophageal hiatus of the diaphragm into the thoracic cavity
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Epidemiology<br><br>
+<section class="section"><div class="card">
+Epidemiology<br>
 The prevalence of hiatus hernia increases with age, estimates go from about 10% under age 40 to ~30-50% in people over 50–70 years, with a slight female predilection.
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Clinical presentation<br><br>
+<section class="section"><div class="card">
+Clinical presentation<br>
 Many patients with a hiatus hernia are asymptomatic, and it is an incidental finding. However, symptoms may include epigastric or chest pain, postprandial fullness, nausea and vomiting. Sometimes hiatus hernias are considered synonymous with gastro-esophageal reflux disease (GERD), but there is a poor correlation between the two conditions.
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Type<br><br>
-Some divide them into four types:<br><br>
+<section class="section"><div class="card">
+Type<br>
+Some divide them into four types:<br>
 Type  1:  sliding hiatal hernia (~95%)<br>
 Type 2: paraesophageal hiatal hernia with the gastro-esophageal junction in a normal position<br>
 Type 3: mixed or compound type, paraesophageal hiatal hernia with displaced gastro-esophageal junction<br>
 Type 4: mixed or compound type hiatal hernia with additional herniation of viscera
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-CT features<br><br>
+<section class="section"><div class="card">
+CT features<br>
 Herniated organs: visualization of the stomach fundus (sliding hernia) or larger portions of the stomach and other viscera (paraesophageal hernia) above the diaphragm<br><br>
 Widened esophageal hiatus: the opening in the diaphragm where the esophagus passes is widened, with separation of the diaphragmatic crura >15mm, providing a clear passage for tissue
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Treatment and prognosis<br><br>
+<section class="section"><div class="card">
+Treatment and prognosis<br>
 Symptomatic hiatus hernias, especially types 2-4, should be managed surgically<br><br>
 In asymptomatic individuals, especially those that are elderly or have significant comorbidities, there is increased evidence that conservative non-surgical management is preferred
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Complications<br><br>
+<section class="section"><div class="card">
+Complications<br>
 A hiatus hernia containing the stomach may result in a gastric volvulus, which in turn presents as intestinal obstruction and may result in ischemia/infarction, or very rarely a tension gastrothorax, causing respiratory failure and eventual cardiac arrest
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Differential diagnosis<br><br>
+<section class="section"><div class="card">
+Differential diagnosis<br>
 Retrocardiac lung abscess / Retrocardiac empyema / Epiphrenic esophageal diverticulum
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-References<br><br>
+<section class="section"><div class="card">
+References<br>
 Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775. doi:10.1007/s00464-024-11092-3<br><br>
 Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux: size larger than 2 cm matters. Dis Esophagus. 2022;35(8):doac001. doi:10.1093/dote/doac001<br><br>
 Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history on non- contrast CT in the Multi-Ethnic Study of Atherosclerosis (MESA). BMJ Open Gastroenterol. 2021;8(1):e000565. doi:10.1136/bmjgast-2020-000565
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
-Please open this links to further information:<br><br>
+<section class="section"><div class="card">
+Please open this links to further information:<br>
 https://youtu.be/j8CT7K_7rX0?si=1PIPGlyjVqPezOu6 https://youtube.com/shorts/qygFIhjGeZk?si=Mz_lZlFP-w-fmRxe https://youtu.be/XK8GbbOfYzM?si=zOFLywxafLz7BT0M
-</div></div>
+</div></section>
 
-<div class="slide"><div class="card highlight">
+<section class="section"><div class="card">
 Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital and thanks fully for our radiografers: Mr. Ino Hadiwinata, Mr Lalan Permana Herlambang, Mr. Ardi Pratama Oktafiansyah and all.
-</div></div>
+</div></section>
+
+<!-- INTERACTIVE PART (UNCHANGED) -->
+<section class="section">
+<div class="card">
+<h2>🧠 Clinical Checker</h2>
+<select id="symptom" class="text-black p-2">
+<option value="">Select</option>
+<option value="mild">Epigastric pain</option>
+<option value="moderate">Pain + nausea</option>
+<option value="severe">Pain + vomiting</option>
+</select>
+<button onclick="checkDiagnosis()">Analyze</button>
+<p id="result"></p>
+</div>
+</section>
 
 <script>
-let slides=document.querySelectorAll(".slide");
-let i=0;
-
-/* AUDIO */
+/* SOUND */
 let bgm=document.getElementById("bgm");
 bgm.volume=0.15;
 bgm.play();
 
-/* VOICE */
+/* CINEMA INTRO */
+let cinemaText=`Hiatus Hernia imaging on ct Presented by Maryadi.dr.SpRad.K.Abdomen Just for reminder..are you sure only GERD and persisten pharyngitis!`;
+
 function speak(text,el){
 let words=text.split(" ");
-el.innerHTML = words.map(w=>`<span>${w}</span>`).join(" ");
+el.innerHTML=words.map(w=>`<span>${w}</span>`).join(" ");
+
 let spans=el.querySelectorAll("span");
 
 let speech=new SpeechSynthesisUtterance(text);
 speech.rate=0.7;
 
-let idx=0;
+let i=0;
 let interval=setInterval(()=>{
-if(spans[idx]) spans[idx].classList.add("active");
-idx++;
-if(idx>=spans.length) clearInterval(interval);
-},350);
+if(spans[i]) spans[i].classList.add("active");
+i++;
+if(i>=spans.length) clearInterval(interval);
+},300);
 
-speechSynthesis.cancel();
 speechSynthesis.speak(speech);
 }
 
-/* SLIDE */
-function nextSlide(){
-slides[i].classList.remove("active");
-i++;
-if(i>=slides.length) return;
+let cinema=document.getElementById("cinema");
 
-slides[i].classList.add("active");
-
-let text=slides[i].innerText;
-let el=slides[i];
-
-speak(text,el);
-
-/* TEMPO PALING NYAMAN */
-let words = text.split(" ").length;
-let delay = words * 700;
-
-setTimeout(nextSlide, delay);
-}
-
-/* START */
 setTimeout(()=>{
-speak(slides[0].innerText,slides[0]);
-setTimeout(nextSlide,9000);
-},1500);
+speak(cinemaText,cinema);
+setTimeout(()=>{
+cinema.classList.add("hiddenCinema");
+},9000);
+},1000);
+
+/* GSAP */
+gsap.utils.toArray(".card").forEach(el=>{
+gsap.from(el,{
+scrollTrigger:{trigger:el,start:"top 80%"},
+opacity:0,y:100,duration:1
+});
+});
+
+/* PROGRESS */
+window.onscroll=()=>{
+let win=document.documentElement.scrollTop;
+let h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+document.getElementById("progress").style.width=(win/h)*100+"%";
+};
+
+/* AI */
+function checkDiagnosis(){
+let val=document.getElementById("symptom").value;
+let r="";
+if(val=="mild") r="Possible GERD";
+if(val=="moderate") r="Consider Hiatus Hernia";
+if(val=="severe") r="⚠️ Strong suspicion Hiatus Hernia";
+document.getElementById("result").innerText=r;
+}
 </script>
 
 </body>
