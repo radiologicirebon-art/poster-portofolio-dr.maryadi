@@ -4,301 +4,212 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia CT – Ultimate Interactive</title>
+<title>Hiatus Hernia Interactive</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-background:#030712;
+background:#0a0f1c;
 color:white;
 font-family:'Poppins',sans-serif;
-overflow-x:hidden;
+overflow:hidden;
 }
 
-/* TEXT */
-h1,h2,h3{font-family:'Orbitron',sans-serif;}
-.glow{color:#00eaff;text-shadow:0 0 15px #00eaff;}
-.center{text-align:center;}
-
-/* SECTION */
-.section{
-display:none;
-padding:80px 8%;
-animation:fade 0.8s ease;
-}
-.active{display:block;}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1;}
-}
-
-/* OPENING */
-.opening{
+/* SLIDE SYSTEM */
+.slide{
+position:absolute;
+width:100%;
 height:100vh;
+top:0;
+left:0;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-background:radial-gradient(circle,#0a1a3a,#030712);
+text-align:center;
+opacity:0;
+transition:0.7s;
+padding:20px;
+}
+
+.active{
+opacity:1;
+z-index:1;
 }
 
 /* BUTTON */
 button{
-background:#00eaff;
+padding:12px 25px;
 border:none;
-padding:12px 20px;
 border-radius:25px;
-cursor:pointer;
-margin:5px;
+background:#00eaff;
 font-weight:bold;
-}
-
-/* NAV */
-.nav{
-position:fixed;
-bottom:0;
-width:100%;
-background:rgba(0,0,0,0.8);
-display:flex;
-overflow-x:auto;
-}
-
-/* CARD */
-.card{
-background:rgba(255,255,255,0.05);
-padding:20px;
-border-radius:15px;
+cursor:pointer;
 margin-top:20px;
 }
 
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:15px;
+/* TITLE */
+h1,h2{
+font-family:'Playfair Display',serif;
 }
 
 /* IMAGE */
 img{
-width:100%;
+max-width:90%;
 border-radius:10px;
-cursor:pointer;
+margin-top:15px;
 }
 
-/* MODAL */
-.modal{
-display:none;
+/* NAV DOT */
+.nav{
 position:fixed;
-top:0; left:0;
-width:100%; height:100%;
-background:black;
-z-index:999;
-}
-
-.modal img{
-width:80%;
-margin:50px auto;
-display:block;
-}
-
-/* HIGHLIGHT ANIMATION */
-.highlight{
-position:relative;
-}
-
-.circle{
-position:absolute;
-border:3px solid #00eaff;
-width:120px;
-height:120px;
-border-radius:50%;
-top:40%;
-left:45%;
-box-shadow:0 0 25px #00eaff;
-animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-0%{transform:scale(1);}
-50%{transform:scale(1.1);}
-100%{transform:scale(1);}
-}
-
-/* SCAN EFFECT */
-.scanline{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-background:linear-gradient(
-rgba(0,255,255,0.05) 50%,
-transparent 50%);
-background-size:100% 4px;
-}
-
-/* SWIPE HINT */
-.swipe{
-position:absolute;
 bottom:20px;
-left:50%;
-transform:translateX(-50%);
-font-size:12px;
-opacity:0.6;
+width:100%;
+text-align:center;
+}
+
+.dot{
+height:10px;
+width:10px;
+margin:5px;
+background:#00eaff;
+border-radius:50%;
+display:inline-block;
+opacity:0.5;
+}
+
+.active-dot{
+opacity:1;
+}
+
+/* ANIMATION */
+.fadeUp{
+animation:fadeUp 1s;
+}
+
+@keyframes fadeUp{
+from{transform:translateY(40px); opacity:0;}
+to{transform:translateY(0); opacity:1;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="scanline"></div>
-
 <!-- AUDIO -->
-<audio id="sound" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+<audio autoplay loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
+</audio>
 
-<!-- OPENING -->
-<div class="opening" id="opening">
-<h1 class="glow">HIATUS HERNIA</h1>
-<p>Radiology Interactive Experience</p>
-<button onclick="start()">ENTER</button>
+<!-- SLIDE 1 -->
+<div class="slide active fadeUp">
+<h1>HIATUS HERNIA</h1>
+<p>Interactive Radiology Experience</p>
+<button onclick="next()">Open Case</button>
 </div>
 
-<!-- HOME -->
-<div id="home" class="section center">
-<h2 class="glow">Clinical Insight</h2>
+<!-- SLIDE 2 -->
+<div class="slide">
+<h2>Clinical Case</h2>
+<p>Mrs. C, 49 y/o</p>
+<p>Epigastric pain & vomiting</p>
+<button onclick="next()">Next</button>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide">
+<h2>Clinical Insight</h2>
 <p>Not all GERD is just GERD...</p>
+<button onclick="next()">Reveal CT</button>
 </div>
 
-<!-- CASE -->
-<div id="case" class="section">
-<h2 class="glow">Clinical Case</h2>
-<div class="card">
-Mrs. C, 49 y/o<br>
-Epigastric pain & vomiting
-</div>
+<!-- SLIDE 4 -->
+<div class="slide">
+<h2>CT Highlight</h2>
+<img src="ct1.jpg">
+<button onclick="next()">Next</button>
 </div>
 
-<!-- CT -->
-<div id="ct" class="section">
-<h2 class="glow">CT Highlight</h2>
-<div class="highlight">
-<img src="ct1.jpg" onclick="openModal(this.src)">
-<div class="circle"></div>
-</div>
-</div>
-
-<!-- MULTI -->
-<div id="multi" class="section">
-<h2 class="glow">Multi View</h2>
-<div class="grid">
-<img src="axial.jpg" onclick="openModal(this.src)">
-<img src="coronal.jpg" onclick="openModal(this.src)">
-<img src="sagittal.jpg" onclick="openModal(this.src)">
-<img src="3d.jpg" onclick="openModal(this.src)">
-</div>
+<!-- SLIDE 5 -->
+<div class="slide">
+<h2>Multi View</h2>
+<img src="axial.jpg">
+<img src="coronal.jpg">
+<img src="sagittal.jpg">
+<button onclick="next()">Next</button>
 </div>
 
-<!-- ANALYSIS -->
-<div id="analysis" class="section">
-<h2 class="glow">Radiological Analysis</h2>
-<div class="card">
-Mixed Hiatal Hernia (Type III)<br>
-• Herniated stomach<br>
-• GE junction displaced
-</div>
+<!-- SLIDE 6 -->
+<div class="slide">
+<h2>Analysis</h2>
+<p>Mixed Hiatal Hernia (Type III)</p>
+<button onclick="next()">Next</button>
 </div>
 
-<!-- QUIZ -->
-<div id="quiz" class="section center">
-<h2 class="glow">Quiz</h2>
-<button onclick="ans()">Type 1</button>
-<button onclick="ans()">Type 2</button>
-<button onclick="ans()">Type 3</button>
-<button onclick="ans()">Type 4</button>
+<!-- SLIDE 7 -->
+<div class="slide">
+<h2>Quiz</h2>
+<p>Which type?</p>
+<button onclick="answer()">Type 3</button>
 <p id="res"></p>
+<button onclick="next()">Next</button>
 </div>
 
-<!-- THEORY -->
-<div id="theory" class="section">
-<h2 class="glow">Theory</h2>
-<div class="card">
-Hiatus hernia = abdominal content into thorax
-</div>
-</div>
-
-<!-- COMPLICATION -->
-<div id="comp" class="section">
-<h2 class="glow">Complications</h2>
-<div class="card">
-Volvulus, ischemia, respiratory failure
-</div>
+<!-- SLIDE 8 -->
+<div class="slide">
+<h2>Definition</h2>
+<p>Herniation of abdominal contents into thorax</p>
+<button onclick="next()">Next</button>
 </div>
 
-<!-- VIDEO -->
-<div id="video" class="section">
-<h2 class="glow">Video</h2>
-<iframe width="100%" height="300"
-src="https://www.youtube.com/embed/j8CT7K_7rX0"></iframe>
+<!-- SLIDE 9 -->
+<div class="slide">
+<h2>Complications</h2>
+<p>Volvulus • Ischemia • Respiratory failure</p>
+<button onclick="next()">Next</button>
 </div>
 
-<!-- CONCLUSION -->
-<div id="end" class="section center">
-<h2 class="glow">Conclusion</h2>
-<p>CT reveals hidden structural pathology</p>
+<!-- SLIDE 10 -->
+<div class="slide">
+<h2>Conclusion</h2>
+<p>CT is key to detect structural disease</p>
+<button onclick="next()">End</button>
 </div>
 
-<!-- NAV -->
-<div class="nav">
-<button onclick="go('home')">Home</button>
-<button onclick="go('case')">Case</button>
-<button onclick="go('ct')">CT</button>
-<button onclick="go('multi')">Multi</button>
-<button onclick="go('analysis')">Analysis</button>
-<button onclick="go('quiz')">Quiz</button>
-<button onclick="go('theory')">Theory</button>
-<button onclick="go('comp')">Risk</button>
-<button onclick="go('video')">Video</button>
-<button onclick="go('end')">End</button>
-</div>
-
-<!-- MODAL -->
-<div id="modal" class="modal" onclick="closeModal()">
-<img id="modalImg">
-</div>
+<!-- NAV DOT -->
+<div class="nav" id="dots"></div>
 
 <script>
-function start(){
-document.getElementById("opening").style.display="none";
-go('home');
+let current=0;
+const slides=document.querySelectorAll('.slide');
+
+function showSlide(n){
+slides.forEach(s=>s.classList.remove('active'));
+slides[n].classList.add('active');
+updateDots();
 }
 
-function go(id){
-document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-playSound();
+function next(){
+current++;
+if(current>=slides.length) current=slides.length-1;
+showSlide(current);
 }
 
-function ans(){
-document.getElementById("res").innerHTML="Correct: Type III";
-playSound();
+function answer(){
+document.getElementById("res").innerHTML="Correct!";
 }
 
-function openModal(src){
-document.getElementById("modal").style.display="block";
-document.getElementById("modalImg").src=src;
+function updateDots(){
+let dots="";
+for(let i=0;i<slides.length;i++){
+dots+=`<span class="dot ${i===current?'active-dot':''}"></span>`;
+}
+document.getElementById("dots").innerHTML=dots;
 }
 
-function closeModal(){
-document.getElementById("modal").style.display="none";
-}
-
-function playSound(){
-document.getElementById("sound").play();
-}
+updateDots();
 </script>
 
 </body>
