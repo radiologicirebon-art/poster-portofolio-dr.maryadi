@@ -4,159 +4,233 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia Poster</title>
+<title>Hiatus Hernia CT Imaging</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <style>
 body{
 margin:0;
-background:#000;
-font-family:Calibri, sans-serif;
+font-family:-apple-system, BlinkMacSystemFont, sans-serif;
+color:white;
+overflow-x:hidden;
+}
+
+/* PROGRESS BAR */
+#progress{
+position:fixed;
+top:0;
+left:0;
+height:5px;
+background:#2dd4bf;
+width:0%;
+z-index:999;
+}
+
+/* BACKGROUND */
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+background:url('https://images.unsplash.com/photo-1581595219315-a187dd40c322?q=80&w=1920') center/cover no-repeat;
+z-index:-2;
+}
+
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+z-index:-1;
+}
+
+.section{
+min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-height:100vh;
-overflow:hidden;
-}
-
-/* POSTER */
-.poster{
-width:1000px;
-height:1800px;
-background:linear-gradient(180deg,#0a0f1c,#02040a);
-color:white;
 padding:40px;
-box-shadow:0 0 80px rgba(0,255,200,0.2);
-overflow-y:auto;
-border-radius:20px;
+text-align:center;
 }
 
-/* TITLE */
 .title{
-font-size:40px;
-font-weight:bold;
-color:#00ffd5;
-text-align:center;
+font-size:clamp(40px,7vw,90px);
+font-weight:700;
 }
 
 .subtitle{
-text-align:center;
-margin-bottom:20px;
+font-size:20px;
+opacity:0.8;
+margin-top:10px;
 }
 
-/* SECTION */
-.section{
-margin-top:20px;
-line-height:1.6;
-font-size:16px;
+.content{
+max-width:900px;
+line-height:1.8;
+font-size:18px;
+opacity:0.9;
 }
 
-.section b{
-color:#00ffd5;
+.glass{
+background:rgba(255,255,255,0.1);
+padding:20px;
+border-radius:20px;
+backdrop-filter:blur(10px);
 }
 
-/* SCROLL STYLE */
-.poster::-webkit-scrollbar{
-width:6px;
-}
-.poster::-webkit-scrollbar-thumb{
-background:#00ffd5;
+.gradient{
+background:linear-gradient(90deg,#2dd4bf,#5eead4);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO AUTO -->
-<audio id="bgm" autoplay loop>
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a3c63d6c3.mp3">
-</audio>
+<div id="progress"></div>
+<div class="bg"></div>
+<div class="overlay"></div>
 
-<div class="poster" id="poster">
-
-<div class="title">Hiatus Hernia imaging on ct</div>
-<div class="subtitle">
-Presented by Maryadi.dr.SpRad.K.Abdomen<br>
-Just for reminder..are you sure only GERD and persisten pharyngitis!
+<!-- HERO -->
+<section class="section">
+<div>
+<h1 class="title gradient">Hiatus Hernia imaging on CT</h1>
+<p class="subtitle">Presented by Maryadi.dr.SpRad.K.Abdomen</p>
+<p class="subtitle mt-4">Just for reminder..are you sure only GERD and persistent pharyngitis!</p>
 </div>
+</section>
 
-<div class="section">
+<!-- CASE -->
+<section class="section">
+<div class="content">
 Mrs C, 49 years old, inpatient at Mitra Plumbon hospital Cirebon, with clinical symptoms epigastric pain and vomiting. CT result demonstrated:
 <br><br>
 <b>Which type of hiatus hernia do you think in this case?</b>
 </div>
+</section>
 
-<div class="section">
-<b>Definition</b><br>
-Hiatus hernias occur when there is herniation of abdominal contents through the esophageal hiatus of the diaphragm into the thoracic cavity
-</div>
+<!-- AI TOOL -->
+<section class="section">
+<div class="glass">
+<h2 class="text-2xl mb-4">🧠 Clinical Checker</h2>
 
-<div class="section">
-<b>Epidemiology</b><br>
-The prevalence of hiatus hernia increases with age, estimates go from about 10% under age 40 to ~30-50% in people over 50–70 years, with a slight female predilection.
-</div>
+<select id="symptom" class="p-2 rounded text-black">
+<option value="">Pilih Gejala</option>
+<option value="mild">Epigastric pain</option>
+<option value="moderate">Pain + nausea</option>
+<option value="severe">Pain + vomiting</option>
+</select>
 
-<div class="section">
-<b>Clinical presentation</b><br>
-Many patients with a hiatus hernia are asymptomatic, and it is an incidental finding. However, symptoms may include epigastric or chest pain, postprandial fullness, nausea and vomiting. Sometimes hiatus hernias are considered synonymous with gastro-esophageal reflux disease (GERD), but there is a poor correlation between the two conditions.
-</div>
+<button onclick="checkDiagnosis()" class="mt-3 px-4 py-2 bg-teal-500 rounded">
+Analyze
+</button>
 
-<div class="section">
-<b>Type</b><br>
-Some divide them into four types:<br>
-Type  1:  sliding hiatal hernia (~95%)<br>
-Type 2: paraesophageal hiatal hernia with the gastro-esophageal junction in a normal position<br>
-Type 3: mixed or compound type, paraesophageal hiatal hernia with displaced gastro-esophageal junction<br>
-Type 4: mixed or compound type hiatal hernia with additional herniation of viscera
+<p id="result" class="mt-4"></p>
 </div>
+</section>
 
-<div class="section">
-<b>CT features</b><br>
-Herniated organs: visualization of the stomach fundus (sliding hernia) or larger portions of the stomach and other viscera (paraesophageal hernia) above the diaphragm<br><br>
-Widened esophageal hiatus: the opening in the diaphragm where the esophagus passes is widened, with separation of the diaphragmatic crura >15mm, providing a clear passage for tissue
-</div>
+<!-- QUIZ -->
+<section class="section">
+<div class="glass">
+<h2 class="text-2xl mb-4">🎯 Quiz</h2>
+<p>Which type is most common?</p>
 
-<div class="section">
-<b>Treatment and prognosis</b><br>
-Symptomatic hiatus hernias, especially types 2-4, should be managed surgically<br><br>
-In asymptomatic individuals, especially those that are elderly or have significant comorbidities, there is increased evidence that conservative non-surgical management is preferred
-</div>
+<button onclick="answer(false)">Type 2</button>
+<button onclick="answer(true)">Type 1</button>
+<button onclick="answer(false)">Type 3</button>
 
-<div class="section">
-<b>Complications</b><br>
-A hiatus hernia containing the stomach may result in a gastric volvulus, which in turn presents as intestinal obstruction and may result in ischemia/infarction, or very rarely a tension gastrothorax, causing respiratory failure and eventual cardiac arrest
+<p id="quizResult"></p>
 </div>
+</section>
 
-<div class="section">
-<b>Differential diagnosis</b><br>
-Retrocardiac lung abscess / Retrocardiac empyema / Epiphrenic esophageal diverticulum
-</div>
+<!-- CT ZOOM -->
+<section class="section">
+<div class="glass">
+<h2 class="text-2xl mb-4">🔍 CT Scan Viewer</h2>
 
-<div class="section">
-<b>References</b><br>
-Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775. doi:10.1007/s00464-024-11092-3<br><br>
-Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux: size larger than 2 cm matters. Dis Esophagus. 2022;35(8):doac001. doi:10.1093/dote/doac001<br><br>
-Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history on non- contrast CT in the Multi-Ethnic Study of Atherosclerosis (MESA). BMJ Open Gastroenterol. 2021;8(1):e000565. doi:10.1136/bmjgast-2020-000565
-</div>
+<img id="ct" src="https://upload.wikimedia.org/wikipedia/commons/8/8a/CT_scan.jpg" style="width:300px; margin:auto;">
 
-<div class="section">
-<b>Please open this links to further information:</b><br>
-https://youtu.be/j8CT7K_7rX0?si=1PIPGlyjVqPezOu6<br>
-https://youtube.com/shorts/qygFIhjGeZk?si=Mz_lZlFP-w-fmRxe<br>
-https://youtu.be/XK8GbbOfYzM?si=zOFLywxafLz7BT0M
+<input type="range" min="1" max="3" step="0.1" value="1" oninput="zoom(this.value)">
 </div>
+</section>
 
-<div class="section">
-<b>Courtesy</b><br>
-Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital and thanks fully for our radiografers: Mr. Ino Hadiwinata, Mr Lalan Permana Herlambang, Mr. Ardi Pratama Oktafiansyah and all.
-</div>
+<!-- REACTION -->
+<section class="section">
+<div class="glass">
+<h2 class="text-xl mb-3">🔥 Reactions</h2>
 
+<button onclick="react('👍')">👍</button>
+<button onclick="react('🔥')">🔥</button>
+<button onclick="react('😮')">😮</button>
+
+<p id="reactText"></p>
 </div>
+</section>
+
+<!-- VIDEO -->
+<section class="section">
+<iframe width="800" height="450"
+src="https://www.youtube.com/embed/j8CT7K_7rX0"
+class="rounded-2xl shadow-2xl"></iframe>
+</section>
+
+<!-- THANK YOU -->
+<section class="section">
+<h1 class="title gradient">Thank You</h1>
+</section>
 
 <script>
-/* FIX AUTOPLAY (browser restriction) */
-document.body.addEventListener("click",()=>{
-document.getElementById("bgm").play();
+gsap.registerPlugin(ScrollTrigger);
+
+/* ANIMASI */
+gsap.utils.toArray(".content, .glass").forEach(el=>{
+gsap.from(el,{
+scrollTrigger:{ trigger:el, start:"top 80%" },
+opacity:0,
+y:100,
+duration:1.2
 });
+});
+
+/* PROGRESS BAR */
+window.onscroll = () => {
+let winScroll = document.documentElement.scrollTop;
+let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+document.getElementById("progress").style.width = (winScroll/height)*100 + "%";
+};
+
+/* AI */
+function checkDiagnosis(){
+let val = document.getElementById("symptom").value;
+let result = "";
+
+if(val=="mild") result="Possible GERD";
+if(val=="moderate") result="Consider Hiatus Hernia";
+if(val=="severe") result="⚠️ Strong suspicion Hiatus Hernia";
+
+document.getElementById("result").innerText = result;
+}
+
+/* QUIZ */
+function answer(correct){
+let el = document.getElementById("quizResult");
+el.innerHTML = correct ? "✅ Correct! Type 1 (~95%)" : "❌ Try again!";
+}
+
+/* ZOOM */
+function zoom(val){
+document.getElementById("ct").style.transform = "scale("+val+")";
+}
+
+/* REACT */
+function react(emoji){
+document.getElementById("reactText").innerText="You reacted: " + emoji;
+}
 </script>
 
 </body>
