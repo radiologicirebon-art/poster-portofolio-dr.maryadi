@@ -4,78 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia CT - Radiology</title>
+<title>Hiatus Hernia CT | Radiology</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
+body{
     margin:0;
-    font-family: 'Poppins', sans-serif;
-    background: #0b0f1a;
-    color: white;
+    background:#050816;
+    color:white;
+    font-family:'Poppins',sans-serif;
 }
 
-h1,h2,h3 {
-    font-family: 'Orbitron', sans-serif;
+h1,h2,h3{
+    font-family:'Orbitron',sans-serif;
 }
 
-.section {
-    padding: 80px 10%;
+.section{
+    padding:80px 8%;
 }
 
-.glow {
-    color: #00d4ff;
-    text-shadow: 0 0 10px #00d4ff;
+.glow{
+    color:#00eaff;
+    text-shadow:0 0 10px #00eaff;
 }
 
-.card {
-    background: rgba(255,255,255,0.05);
-    padding: 20px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+.card{
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+    border-radius:15px;
+    backdrop-filter:blur(12px);
     margin-top:20px;
+    transition:0.3s;
 }
 
-button {
-    background: #00d4ff;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 0 20px #00eaff;
+}
+
+button{
+    background:#00eaff;
+    border:none;
+    padding:12px 20px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:bold;
     margin:5px;
 }
 
-.highlight-box {
-    position: relative;
+img{
+    max-width:100%;
 }
 
-.highlight-circle {
-    position: absolute;
-    border: 3px solid #00d4ff;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    top: 40%;
-    left: 45%;
-    box-shadow: 0 0 15px #00d4ff;
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
 }
 
-.modal {
+/* MODAL */
+.modal{
     display:none;
     position:fixed;
     z-index:999;
-    padding-top:50px;
-    left:0; top:0;
-    width:100%; height:100%;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
     background:black;
 }
 
-.modal img {
-    margin:auto;
+.modal img{
     display:block;
+    margin:auto;
     width:80%;
+    margin-top:50px;
+}
+
+/* HIGHLIGHT */
+.highlight-box{
+    position:relative;
+}
+
+.highlight-circle{
+    position:absolute;
+    border:3px solid #00eaff;
+    border-radius:50%;
+    width:120px;
+    height:120px;
+    top:40%;
+    left:45%;
+    box-shadow:0 0 20px #00eaff;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:120px 10%;
+    background:radial-gradient(circle at center,#0a1a3a,#050816);
 }
 </style>
 </head>
@@ -83,214 +111,200 @@ button {
 <body>
 
 <!-- HERO -->
-<section class="section" style="text-align:center;">
+<section class="hero">
     <h1 class="glow">HIATUS HERNIA</h1>
     <h2>Imaging on CT</h2>
-
-    <p>Presented by:<br>
-    Maryadi, dr., Sp.Rad(K). Abdomen</p>
-
+    <p>Maryadi, dr., Sp.Rad(K). Abdomen</p>
     <p>RS Mitra Plumbon – Cirebon</p>
-
     <button onclick="scrollToSection()">Explore Case</button>
 </section>
 
-<!-- CLINICAL CASE -->
+<!-- CASE -->
 <section class="section">
-    <h2 class="glow">Clinical Case</h2>
+<h2 class="glow">Clinical Case</h2>
+<div class="card">
+<b>Mrs. C, 49 years old</b>
+<ul>
+<li>Epigastric pain</li>
+<li>Vomiting</li>
+</ul>
+</div>
 
-    <div class="card">
-        <p><b>Mrs. C, 49 years old</b></p>
-        <p>Symptoms:</p>
-        <ul>
-            <li>Epigastric pain</li>
-            <li>Vomiting</li>
-        </ul>
-    </div>
-
-    <div class="card" style="text-align:center;">
-        <h3>Are you sure only GERD & persistent pharyngitis?</h3>
-    </div>
+<div class="card" style="text-align:center;">
+<h3>Are you sure only GERD & persistent pharyngitis?</h3>
+</div>
 </section>
 
 <!-- CT FINDINGS -->
 <section class="section">
-    <h2 class="glow">CT Findings</h2>
-
-    <div class="card">
-        <ul>
-            <li>Herniation of gastric structure</li>
-            <li>Located above diaphragm</li>
-            <li>Widened hiatus suspected</li>
-        </ul>
-    </div>
+<h2 class="glow">CT Findings</h2>
+<div class="card">
+<ul>
+<li>Herniation of gastric structure above diaphragm</li>
+<li>Widened esophageal hiatus</li>
+<li>Suspicious mixed type hernia</li>
+</ul>
+</div>
 </section>
 
-<!-- CT IMAGE -->
+<!-- CT MAIN -->
 <section class="section">
-    <h2 class="glow">CT Imaging</h2>
+<h2 class="glow">CT Imaging Highlight</h2>
 
-    <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
-
-        <div style="flex:1;">
-            <img src="ct1.jpg" alt="CT Scan"
-            style="width:100%; border-radius:15px; box-shadow:0 0 20px #00d4ff; cursor:pointer;"
-            onclick="openModal(this.src)">
-        </div>
-
-        <div style="flex:1;">
-            <div class="card">
-                <h3>Radiology Insight</h3>
-                <p>
-                Visualized herniation of gastric fundus above diaphragm 
-                with widened esophageal hiatus.
-                </p>
-            </div>
-        </div>
-
-    </div>
+<div class="highlight-box">
+<img src="ct1.jpg" onclick="openModal(this.src)">
+<div class="highlight-circle"></div>
+</div>
 </section>
 
-<!-- HIGHLIGHT -->
+<!-- MULTI VIEW -->
 <section class="section">
-    <h2 class="glow">Lesion Highlight</h2>
+<h2 class="glow">CT Multi View</h2>
 
-    <div class="highlight-box">
-        <img src="ct1.jpg" style="width:100%; border-radius:15px;">
-        <div class="highlight-circle"></div>
-    </div>
+<div class="grid">
+
+<div class="card">
+<h3>Axial</h3>
+<img src="axial.jpg" onclick="openModal(this.src)">
+</div>
+
+<div class="card">
+<h3>Coronal</h3>
+<img src="coronal.jpg" onclick="openModal(this.src)">
+</div>
+
+<div class="card">
+<h3>Sagittal</h3>
+<img src="sagittal.jpg" onclick="openModal(this.src)">
+</div>
+
+<div class="card">
+<h3>3D Reconstruction</h3>
+<img src="3d.jpg" onclick="openModal(this.src)">
+</div>
+
+</div>
 </section>
 
 <!-- QUIZ -->
 <section class="section" style="text-align:center;">
-    <h2 class="glow">Quiz</h2>
-    <p>Which type of hiatus hernia?</p>
+<h2 class="glow">Quiz</h2>
+<p>Which type of hiatus hernia?</p>
 
-    <button onclick="answer()">Type 1</button>
-    <button onclick="answer()">Type 2</button>
-    <button onclick="answer()">Type 3</button>
-    <button onclick="answer()">Type 4</button>
+<button onclick="answer()">Type 1</button>
+<button onclick="answer()">Type 2</button>
+<button onclick="answer()">Type 3</button>
+<button onclick="answer()">Type 4</button>
 
-    <p id="result"></p>
+<p id="result"></p>
 </section>
 
-<!-- DEFINITION & EPID -->
+<!-- THEORY -->
 <section class="section">
-    <h2 class="glow">Definition</h2>
+<h2 class="glow">Definition</h2>
+<div class="card">
+Herniation of abdominal contents through esophageal hiatus into thoracic cavity
+</div>
 
-    <div class="card">
-        Hiatus hernia occurs when abdominal contents herniate 
-        through the esophageal hiatus into the thoracic cavity
-    </div>
-
-    <h2 class="glow">Epidemiology</h2>
-
-    <div class="card">
-        <ul>
-            <li>< 40 years → ~10%</li>
-            <li>> 50–70 years → 30–50%</li>
-            <li>Slight female predominance</li>
-        </ul>
-    </div>
+<h2 class="glow">Epidemiology</h2>
+<div class="card">
+<ul>
+<li>< 40 years: ~10%</li>
+<li>> 50–70 years: 30–50%</li>
+<li>Female predominance</li>
+</ul>
+</div>
 </section>
 
 <!-- TYPES -->
 <section class="section">
-    <h2 class="glow">Types</h2>
-
-    <div class="card">Type 1: Sliding (~95%)</div>
-    <div class="card">Type 2: Paraesophageal</div>
-    <div class="card">Type 3: Mixed</div>
-    <div class="card">Type 4: Complex</div>
+<h2 class="glow">Types</h2>
+<div class="grid">
+<div class="card">Type 1 – Sliding</div>
+<div class="card">Type 2 – Paraesophageal</div>
+<div class="card">Type 3 – Mixed</div>
+<div class="card">Type 4 – Complex</div>
+</div>
 </section>
 
-<!-- CT FEATURES & TREATMENT -->
+<!-- CT FEATURES -->
 <section class="section">
-    <h2 class="glow">CT Features</h2>
+<h2 class="glow">CT Features</h2>
+<div class="card">
+<ul>
+<li>Stomach above diaphragm</li>
+<li>Hiatus widening >15 mm</li>
+<li>Crura separation</li>
+</ul>
+</div>
+</section>
 
-    <div class="card">
-        <ul>
-            <li>Stomach above diaphragm</li>
-            <li>Widened hiatus (>15 mm)</li>
-            <li>Separation of crura</li>
-        </ul>
-    </div>
-
-    <h2 class="glow">Treatment</h2>
-
-    <div class="card">
-        Symptomatic (Type 2–4) → Surgery<br>
-        Asymptomatic → Conservative
-    </div>
+<!-- TREATMENT -->
+<section class="section">
+<h2 class="glow">Treatment</h2>
+<div class="card">
+Symptomatic → Surgery<br>
+Asymptomatic → Conservative
+</div>
 </section>
 
 <!-- COMPLICATION -->
 <section class="section">
-    <h2 class="glow">Complications</h2>
+<h2 class="glow">Complications</h2>
+<div class="card">
+<ul>
+<li>Gastric volvulus</li>
+<li>Obstruction</li>
+<li>Ischemia</li>
+<li>Respiratory failure</li>
+</ul>
+</div>
 
-    <div class="card">
-        <ul>
-            <li>Gastric volvulus</li>
-            <li>Obstruction</li>
-            <li>Ischemia</li>
-            <li>Respiratory failure</li>
-        </ul>
-    </div>
-
-    <h2 class="glow">Differential Diagnosis</h2>
-
-    <div class="card">
-        <ul>
-            <li>Retrocardiac lung abscess</li>
-            <li>Retrocardiac empyema</li>
-            <li>Esophageal diverticulum</li>
-        </ul>
-    </div>
+<h2 class="glow">Differential Diagnosis</h2>
+<div class="card">
+<ul>
+<li>Retrocardiac abscess</li>
+<li>Empyema</li>
+<li>Esophageal diverticulum</li>
+</ul>
+</div>
 </section>
 
 <!-- CREDIT -->
 <section class="section" style="text-align:center;">
-    <h2 class="glow">Credits</h2>
+<h2 class="glow">Credits</h2>
+<div class="card">
+Mrs. C<br>
+dr. Bungsu, SpPD<br><br>
 
-    <div class="card">
-        <p>Courtesy: Mrs. C</p>
-        <p>dr. Bungsu, SpPD</p>
-
-        <p>Radiographers:</p>
-        <p>
-        Ino Hadiwinata<br>
-        Lalan Permana Herlambang<br>
-        Ardi Pratama Oktafiansyah
-        </p>
-    </div>
-
-    <p style="margin-top:40px; opacity:0.6;">
-        © Radiology RS Mitra Plumbon
-    </p>
+Radiographers:<br>
+Ino Hadiwinata<br>
+Lalan Permana Herlambang<br>
+Ardi Pratama Oktafiansyah
+</div>
 </section>
 
 <!-- MODAL -->
 <div id="imgModal" class="modal" onclick="closeModal()">
-    <img id="modalImg">
+<img id="modalImg">
 </div>
 
 <script>
 function scrollToSection(){
-    window.scrollTo({ top: 600, behavior: 'smooth' });
+window.scrollTo({top:600,behavior:'smooth'});
 }
 
 function answer(){
-    document.getElementById("result").innerHTML =
-    "Most likely Type 3 (Mixed Hiatal Hernia)";
+document.getElementById("result").innerHTML="Most likely Type 3 (Mixed Hiatal Hernia)";
 }
 
 function openModal(src){
-    document.getElementById("imgModal").style.display="block";
-    document.getElementById("modalImg").src=src;
+document.getElementById("imgModal").style.display="block";
+document.getElementById("modalImg").src=src;
 }
 
 function closeModal(){
-    document.getElementById("imgModal").style.display="none";
+document.getElementById("imgModal").style.display="none";
 }
 </script>
 
