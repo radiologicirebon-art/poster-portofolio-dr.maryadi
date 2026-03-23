@@ -4,238 +4,260 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia CT | Radiology E-Poster</title>
+<title>Hiatus Hernia CT | Premium Interactive Poster</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <style>
 :root{
---primary:#00d4ff;
---dark:#0a0f1c;
---card:#121a2b;
---text:#e6f1ff;
+--primary:#00f0ff;
+--bg:#050914;
+--glass:rgba(255,255,255,0.05);
+--text:#eaf6ff;
 }
 
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(135deg,#0a0f1c,#0f1c3d);
+font-family:Poppins;
+background:radial-gradient(circle at top,#0a1a3f,#050914);
 color:var(--text);
 overflow-x:hidden;
 }
 
+/* LOADING */
+#loader{
+position:fixed;
+width:100%;
+height:100%;
+background:#000;
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:9999;
+font-size:20px;
+letter-spacing:2px;
+}
+
+/* NAV FLOAT */
+.nav{
+position:fixed;
+top:20px;
+right:20px;
+display:flex;
+gap:10px;
+z-index:999;
+}
+
+.nav button{
+background:var(--glass);
+border:none;
+color:white;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+backdrop-filter:blur(10px);
+}
+
 /* HERO */
 .hero{
-padding:80px 20px;
 text-align:center;
-background:radial-gradient(circle at top,#00d4ff22,#000000);
+padding:80px 20px;
 }
 
 .hero h1{
-font-size:42px;
-margin:0;
+font-size:45px;
 color:var(--primary);
+text-shadow:0 0 20px #00f0ff;
 }
 
-.hero p{
-opacity:.8;
-}
-
-/* SECTION */
-.section{
-padding:50px 20px;
-max-width:1100px;
-margin:auto;
-}
-
+/* GLASS CARD */
 .card{
-background:var(--card);
-border-radius:18px;
+background:var(--glass);
+backdrop-filter:blur(20px);
+border-radius:20px;
 padding:25px;
-margin-bottom:25px;
-box-shadow:0 10px 40px rgba(0,0,0,.4);
-transition:.3s;
+margin:30px auto;
+max-width:1100px;
+box-shadow:0 0 40px rgba(0,0,0,.6);
 }
 
-.card:hover{
-transform:translateY(-5px);
-}
-
-/* PDF Canvas */
+/* PDF */
 canvas{
 width:100%;
-border-radius:12px;
 margin-bottom:20px;
+border-radius:10px;
 }
 
-/* Accordion */
+/* SECTION ANIMATION */
+.reveal{
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+.reveal.active{
+opacity:1;
+transform:none;
+}
+
+/* ACCORDION */
 .accordion{
-cursor:pointer;
 padding:15px;
+background:#0c1c3a;
+margin:10px 0;
 border-radius:10px;
-background:#1a2540;
-margin-bottom:10px;
+cursor:pointer;
 }
 
 .panel{
 display:none;
 padding:15px;
-background:#0e1628;
-border-radius:10px;
-margin-bottom:15px;
 }
 
-/* Highlight */
-.highlight{
-color:var(--primary);
-font-weight:600;
+/* FULLSCREEN BTN */
+.fullscreen{
+position:fixed;
+bottom:20px;
+right:20px;
+background:var(--primary);
+border:none;
+padding:15px;
+border-radius:50%;
+cursor:pointer;
 }
 
-/* Video */
-iframe{
-width:100%;
-height:300px;
-border-radius:12px;
+/* DARK LIGHT */
+.light{
+background:white;
+color:black;
 }
 
-/* Footer */
-.footer{
-text-align:center;
-padding:30px;
-font-size:14px;
-opacity:.6;
-}
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="hero">
-<h1>Hiatus Hernia Imaging on CT</h1>
-<p>Presented by dr. Maryadi, Sp.Rad(K) Abdomen</p>
+<div id="loader">LOADING EXPERIENCE...</div>
+
+<!-- NAV -->
+<div class="nav">
+<button onclick="toggleTheme()">🌗</button>
+<button onclick="startVoice()">🔊</button>
 </div>
 
-<!-- PDF RENDER -->
-<div class="section">
-<div class="card">
-<h2>📄 Poster Preview (Auto Render)</h2>
-<div id="pdf-container"></div>
+<!-- HERO -->
+<div class="hero reveal">
+<h1>Hiatus Hernia CT Imaging</h1>
+<p>Interactive Radiology Experience</p>
 </div>
+
+<!-- PDF -->
+<div class="card reveal">
+<h2>📄 Poster Visualization</h2>
+<div id="pdf"></div>
 </div>
 
 <!-- CASE -->
-<div class="section">
-<div class="card">
+<div class="card reveal">
 <h2>🧠 Clinical Case</h2>
-<p><span class="highlight">Mrs. C, 49 years old</span> with epigastric pain & vomiting.</p>
-<p>CT Scan demonstrated herniation through esophageal hiatus.</p>
-</div>
+<p>Female, 49 years with epigastric pain & vomiting</p>
 </div>
 
 <!-- ACCORDION -->
-<div class="section">
+<div class="card reveal">
 
-<div class="accordion">📘 Definition</div>
+<div class="accordion">Definition</div>
+<div class="panel">Herniation of abdominal contents into thorax.</div>
+
+<div class="accordion">Types</div>
 <div class="panel">
-Hiatus hernia is herniation of abdominal contents into thoracic cavity through diaphragm.
+Type 1 (Sliding)<br>
+Type 2 (Paraesophageal)<br>
+Type 3 (Mixed)<br>
+Type 4 (Complex)
 </div>
 
-<div class="accordion">📊 Epidemiology</div>
-<div class="panel">
-Prevalence increases with age (10% → 50% in elderly).
-</div>
-
-<div class="accordion">⚠️ Clinical Presentation</div>
-<div class="panel">
-Epigastric pain, fullness, nausea, vomiting. Often incidental.
-</div>
-
-<div class="accordion">🧩 Types</div>
-<div class="panel">
-Type 1: Sliding (95%)<br>
-Type 2: Paraesophageal<br>
-Type 3: Mixed<br>
-Type 4: With other viscera
-</div>
-
-<div class="accordion">🩻 CT Features</div>
+<div class="accordion">CT Features</div>
 <div class="panel">
 - Stomach above diaphragm<br>
-- Widened hiatus (>15mm)
-</div>
-
-<div class="accordion">💊 Management</div>
-<div class="panel">
-Symptomatic → Surgery<br>
-Asymptomatic → Conservative
+- Hiatus widening
 </div>
 
 </div>
 
 <!-- VIDEO -->
-<div class="section">
-<div class="card">
-<h2>🎥 Learning Video</h2>
-
-<iframe src="https://www.youtube.com/embed/j8CT7K_7rX0" allowfullscreen></iframe>
-
-</div>
+<div class="card reveal">
+<h2>🎥 CT Explanation</h2>
+<iframe width="100%" height="300"
+src="https://www.youtube.com/embed/j8CT7K_7rX0">
+</iframe>
 </div>
 
-<!-- AUDIO -->
-<div class="section">
-<div class="card">
-<h2>🔊 Audio Explanation</h2>
-<audio controls autoplay loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
-</div>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-Radiology Department - RS Mitra Plumbon<br>
-Professional • Fast • Accurate
-</div>
+<!-- FULLSCREEN -->
+<button class="fullscreen" onclick="goFull()">⛶</button>
 
 <script>
 
-// PDF AUTO RENDER
-const url = "POSTER.pdf"; // pastikan nama file sama
+// LOADER
+window.onload = () => {
+setTimeout(()=>document.getElementById("loader").style.display="none",1500);
+};
 
-pdfjsLib.getDocument(url).promise.then(pdf => {
+// PDF RENDER
+pdfjsLib.getDocument("POSTER.pdf").promise.then(pdf=>{
 for(let i=1;i<=pdf.numPages;i++){
 pdf.getPage(i).then(page=>{
-const scale = 1.5;
-const viewport = page.getViewport({scale});
-
+const viewport = page.getViewport({scale:1.5});
 const canvas = document.createElement("canvas");
 const ctx = canvas.getContext("2d");
 
 canvas.height = viewport.height;
 canvas.width = viewport.width;
 
-document.getElementById("pdf-container").appendChild(canvas);
+document.getElementById("pdf").appendChild(canvas);
 
-page.render({
-canvasContext: ctx,
-viewport: viewport
-});
+page.render({canvasContext:ctx,viewport});
 });
 }
 });
 
 // ACCORDION
 document.querySelectorAll(".accordion").forEach(btn=>{
-btn.addEventListener("click",()=>{
-btn.classList.toggle("active");
-let panel = btn.nextElementSibling;
-panel.style.display = panel.style.display === "block" ? "none" : "block";
+btn.onclick=()=>{
+let panel=btn.nextElementSibling;
+panel.style.display = panel.style.display==="block"?"none":"block";
+};
+});
+
+// SCROLL ANIMATION
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".reveal").forEach(el=>{
+let top = el.getBoundingClientRect().top;
+if(top < window.innerHeight-100){
+el.classList.add("active");
+}
 });
 });
+
+// VOICE AI
+function startVoice(){
+let msg = new SpeechSynthesisUtterance(
+"Hiatus hernia is a condition where abdominal organs herniate into thoracic cavity."
+);
+msg.rate=0.9;
+msg.pitch=1;
+speechSynthesis.speak(msg);
+}
+
+// FULLSCREEN
+function goFull(){
+document.documentElement.requestFullscreen();
+}
+
+// THEME
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
 
 </script>
 
