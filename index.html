@@ -4,20 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia Interactive</title>
+<title>Hiatus Hernia CT | Clinical Radiology</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-background:#0a0f1c;
-color:white;
-font-family:'Poppins',sans-serif;
+font-family:'Inter',sans-serif;
+background:#0b0f1a;
+color:#eaeef5;
 overflow:hidden;
 }
 
-/* SLIDE SYSTEM */
+/* SLIDE */
 .slide{
 position:absolute;
 width:100%;
@@ -29,187 +29,364 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+padding:40px;
 opacity:0;
-transition:0.7s;
-padding:20px;
+transform:translateX(40px);
+transition:all 0.6s ease;
 }
 
-.active{
+.slide.active{
 opacity:1;
+transform:translateX(0);
 z-index:1;
 }
 
-/* BUTTON */
-button{
-padding:12px 25px;
-border:none;
-border-radius:25px;
-background:#00eaff;
-font-weight:bold;
-cursor:pointer;
-margin-top:20px;
+/* TEXT */
+h1{font-size:42px;}
+h2{font-size:28px;color:#7dd3fc;}
+
+p{
+max-width:800px;
+line-height:1.6;
 }
 
-/* TITLE */
-h1,h2{
-font-family:'Playfair Display',serif;
+/* BUTTON */
+.btn{
+margin-top:25px;
+padding:10px 22px;
+border:1px solid #7dd3fc;
+border-radius:30px;
+background:transparent;
+color:#7dd3fc;
+cursor:pointer;
 }
 
 /* IMAGE */
 img{
-max-width:90%;
+max-width:70%;
 border-radius:10px;
-margin-top:15px;
+margin-top:20px;
+cursor:pointer;
 }
 
 /* NAV DOT */
 .nav{
 position:fixed;
 bottom:20px;
-width:100%;
-text-align:center;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:8px;
 }
 
 .dot{
-height:10px;
-width:10px;
-margin:5px;
-background:#00eaff;
+width:8px;
+height:8px;
 border-radius:50%;
-display:inline-block;
-opacity:0.5;
+background:#555;
 }
 
-.active-dot{
-opacity:1;
+.dot.active{
+background:#7dd3fc;
 }
 
-/* ANIMATION */
-.fadeUp{
-animation:fadeUp 1s;
+/* PROGRESS */
+.progress{
+position:fixed;
+bottom:0;
+left:0;
+height:3px;
+background:#7dd3fc;
+width:0%;
+transition:0.4s;
 }
 
-@keyframes fadeUp{
-from{transform:translateY(40px); opacity:0;}
-to{transform:translateY(0); opacity:1;}
+/* COUNTER */
+.counter{
+position:fixed;
+top:20px;
+right:20px;
+font-size:12px;
+opacity:0.6;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:black;
+z-index:999;
+}
+
+.modal img{
+display:block;
+margin:auto;
+width:80%;
+margin-top:50px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
-<audio autoplay loop>
-<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
-
 <!-- SLIDE 1 -->
-<div class="slide active fadeUp">
-<h1>HIATUS HERNIA</h1>
-<p>Interactive Radiology Experience</p>
-<button onclick="next()">Open Case</button>
+<div class="slide active">
+<h1>Hiatus Hernia</h1>
+<h2>CT Imaging</h2>
+<p>Maryadi, dr., Sp.Rad(K)</p>
+<button class="btn" onclick="next()">Start</button>
 </div>
 
 <!-- SLIDE 2 -->
 <div class="slide">
-<h2>Clinical Case</h2>
-<p>Mrs. C, 49 y/o</p>
-<p>Epigastric pain & vomiting</p>
-<button onclick="next()">Next</button>
+<h2>Clinical Reminder</h2>
+<p>Are you sure this is only GERD or persistent pharyngitis?</p>
 </div>
 
 <!-- SLIDE 3 -->
 <div class="slide">
-<h2>Clinical Insight</h2>
-<p>Not all GERD is just GERD...</p>
-<button onclick="next()">Reveal CT</button>
+<h2>Clinical Case</h2>
+<p>
+Mrs. C, 49 years old<br>
+Epigastric pain & vomiting<br>
+RS Mitra Plumbon
+</p>
 </div>
 
 <!-- SLIDE 4 -->
 <div class="slide">
-<h2>CT Highlight</h2>
-<img src="ct1.jpg">
-<button onclick="next()">Next</button>
+<h2>Clinical Question</h2>
+<p>Which type of hiatus hernia is this?</p>
 </div>
 
 <!-- SLIDE 5 -->
 <div class="slide">
-<h2>Multi View</h2>
-<img src="axial.jpg">
-<img src="coronal.jpg">
-<img src="sagittal.jpg">
-<button onclick="next()">Next</button>
+<h2>CT Findings</h2>
+<p>
+Herniation of stomach above diaphragm<br>
+Widened esophageal hiatus
+</p>
+<img src="ct1.jpg">
 </div>
 
 <!-- SLIDE 6 -->
 <div class="slide">
-<h2>Analysis</h2>
-<p>Mixed Hiatal Hernia (Type III)</p>
-<button onclick="next()">Next</button>
+<h2>Multiplanar CT</h2>
+<img src="axial.jpg">
+<img src="coronal.jpg">
+<img src="sagittal.jpg">
+<img src="3d.jpg">
 </div>
 
 <!-- SLIDE 7 -->
 <div class="slide">
-<h2>Quiz</h2>
-<p>Which type?</p>
-<button onclick="answer()">Type 3</button>
-<p id="res"></p>
-<button onclick="next()">Next</button>
+<h2>Radiological Interpretation</h2>
+<p>
+Gastric fundus above diaphragm<br>
+GE junction displacement<br>
+Hiatus widening >15 mm
+</p>
 </div>
 
 <!-- SLIDE 8 -->
 <div class="slide">
-<h2>Definition</h2>
-<p>Herniation of abdominal contents into thorax</p>
-<button onclick="next()">Next</button>
+<h2>Diagnosis</h2>
+<p><b>Type III (Mixed Hiatal Hernia)</b></p>
 </div>
 
 <!-- SLIDE 9 -->
 <div class="slide">
-<h2>Complications</h2>
-<p>Volvulus • Ischemia • Respiratory failure</p>
-<button onclick="next()">Next</button>
+<h2>Definition</h2>
+<p>
+Herniation of abdominal contents through esophageal hiatus into thorax
+</p>
 </div>
 
 <!-- SLIDE 10 -->
 <div class="slide">
-<h2>Conclusion</h2>
-<p>CT is key to detect structural disease</p>
-<button onclick="next()">End</button>
+<h2>Epidemiology</h2>
+<p>
+< 40 years: ~10%<br>
+> 50–70 years: 30–50%<br>
+Slight female predominance
+</p>
 </div>
 
-<!-- NAV DOT -->
-<div class="nav" id="dots"></div>
+<!-- SLIDE 11 -->
+<div class="slide">
+<h2>Clinical Presentation</h2>
+<p>
+Asymptomatic or:<br>
+Epigastric pain, fullness, nausea, vomiting<br>
+Poor correlation with GERD
+</p>
+</div>
+
+<!-- SLIDE 12 -->
+<div class="slide">
+<h2>Types</h2>
+<p>
+Type 1: Sliding<br>
+Type 2: Paraesophageal<br>
+Type 3: Mixed<br>
+Type 4: With other viscera
+</p>
+</div>
+
+<!-- SLIDE 13 -->
+<div class="slide">
+<h2>CT Features</h2>
+<p>
+Stomach above diaphragm<br>
+Hiatus widening (>15 mm)
+</p>
+</div>
+
+<!-- SLIDE 14 -->
+<div class="slide">
+<h2>Treatment</h2>
+<p>
+Symptomatic → Surgery<br>
+Asymptomatic → Conservative
+</p>
+</div>
+
+<!-- SLIDE 15 -->
+<div class="slide">
+<h2>Complications</h2>
+<p>
+Gastric volvulus<br>
+Ischemia<br>
+Respiratory failure
+</p>
+</div>
+
+<!-- SLIDE 16 -->
+<div class="slide">
+<h2>Differential Diagnosis</h2>
+<p>
+Retrocardiac abscess<br>
+Empyema<br>
+Esophageal diverticulum
+</p>
+</div>
+
+<!-- SLIDE 17 -->
+<div class="slide">
+<h2>Conclusion</h2>
+<p>
+CT is essential to identify structural abnormalities and prevent complications
+</p>
+</div>
+
+<!-- SLIDE 18 -->
+<div class="slide">
+<h2>References</h2>
+<p style="font-size:12px;">
+SAGES 2024<br>
+Dis Esophagus 2022<br>
+BMJ Gastroenterology 2021
+</p>
+</div>
+
+<!-- SLIDE 19 -->
+<div class="slide">
+<h2>Credits</h2>
+<p style="font-size:13px;">
+Mrs. C<br>
+dr. Bungsu SpPD<br>
+Ino Hadiwinata<br>
+Radiology Team RS Mitra Plumbon
+</p>
+</div>
+
+<!-- UI -->
+<div class="nav" id="nav"></div>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter"></div>
+
+<div id="modal" class="modal" onclick="closeModal()">
+<img id="modalImg">
+</div>
 
 <script>
-let current=0;
-const slides=document.querySelectorAll('.slide');
+let current = 0;
+const slides = document.querySelectorAll('.slide');
 
-function showSlide(n){
+function show(n){
 slides.forEach(s=>s.classList.remove('active'));
 slides[n].classList.add('active');
-updateDots();
+updateNav();
+updateProgress();
+updateCounter();
 }
 
 function next(){
+if(current < slides.length-1){
 current++;
-if(current>=slides.length) current=slides.length-1;
-showSlide(current);
+show(current);
+}
 }
 
-function answer(){
-document.getElementById("res").innerHTML="Correct!";
+function prev(){
+if(current > 0){
+current--;
+show(current);
+}
 }
 
-function updateDots(){
+document.body.addEventListener("click", e=>{
+if(e.target.tagName !== "IMG" && !e.target.classList.contains("btn")){
+next();
+}
+});
+
+document.addEventListener("keydown", e=>{
+if(e.key==="ArrowRight") next();
+if(e.key==="ArrowLeft") prev();
+});
+
+function updateNav(){
 let dots="";
 for(let i=0;i<slides.length;i++){
-dots+=`<span class="dot ${i===current?'active-dot':''}"></span>`;
+dots+=`<div class="dot ${i===current?'active':''}"></div>`;
 }
-document.getElementById("dots").innerHTML=dots;
+document.getElementById("nav").innerHTML=dots;
 }
 
-updateDots();
+function updateProgress(){
+let percent = ((current+1)/slides.length)*100;
+document.getElementById("progress").style.width = percent + "%";
+}
+
+function updateCounter(){
+document.getElementById("counter").innerHTML =
+(current+1) + " / " + slides.length;
+}
+
+document.querySelectorAll("img").forEach(img=>{
+img.onclick = e=>{
+e.stopPropagation();
+openModal(img.src);
+}
+});
+
+function openModal(src){
+document.getElementById("modal").style.display="block";
+document.getElementById("modalImg").src=src;
+}
+
+function closeModal(){
+document.getElementById("modal").style.display="none";
+}
+
+updateNav();
+updateProgress();
+updateCounter();
 </script>
 
 </body>
