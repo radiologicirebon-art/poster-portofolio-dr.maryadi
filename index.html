@@ -4,238 +4,198 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Radiology Cinematic Portfolio</title>
+<title>Hiatus Hernia CT - Radiology</title>
 
-<!-- Tailwind -->
-<script src="https://cdn.tailwindcss.com"></script>
-
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-<!-- Cornerstone (DICOM) -->
-<script src="https://unpkg.com/cornerstone-core"></script>
-<script src="https://unpkg.com/cornerstone-wado-image-loader"></script>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-body{
-margin:0;
-background:black;
-color:white;
-font-family:sans-serif;
-overflow-x:hidden;
+body {
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    background: #0b0f1a;
+    color: white;
 }
 
-.section{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:40px;
-transition:.6s;
+h1,h2,h3 {
+    font-family: 'Orbitron', sans-serif;
 }
 
-.section.active{
-transform:scale(1.06);
-}
-.section:not(.active){
-opacity:.2;
-filter:blur(4px);
+.section {
+    padding: 80px 10%;
 }
 
-.card{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(20px);
-padding:30px;
-border-radius:20px;
-max-width:900px;
+.glow {
+    color: #00d4ff;
+    text-shadow: 0 0 10px #00d4ff;
 }
 
-.spotlight{
-position:fixed;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:1;
+.card {
+    background: rgba(255,255,255,0.05);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    margin-top:20px;
 }
 
-#aiBox{
-position:absolute;
-border:2px solid red;
-width:80px;
-height:80px;
-display:none;
+button {
+    background: #00d4ff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
 }
+
 </style>
 </head>
-
 <body>
+  <section class="section" style="text-align:center;">
+    <h1 class="glow">HIATUS HERNIA</h1>
+    <h2>Imaging on CT</h2>
 
-<div class="spotlight"></div>
+    <p>Presented by:<br>
+    Maryadi, dr., Sp.Rad(K). Abdomen</p>
 
-<!-- HERO -->
-<section class="section">
-<div>
-<h1 class="text-5xl font-bold">Hiatus Hernia imaging on ct</h1>
-<p>Presented by Maryadi.dr.SpRad.K.Abdomen</p>
-<p class="opacity-70">Just for reminder..are you sure only GERD and persisten pharyngitis!</p>
-</div>
+    <p>RS Mitra Plumbon – Cirebon</p>
+
+    <button onclick="scrollToSection()">Explore Case</button>
 </section>
 
-<!-- CASE -->
-<section class="section">
-<div class="card">
-Mrs C, 49 years old, inpatient at Mitra Plumbon hospital Cirebon, with clinical symptoms epigastric pain and vomiting. CT result demonstrated:
-
-<br><br>
-<b>Which type of hiatus hernia do you think in this case?</b>
-</div>
-</section>
-
-<!-- PACS -->
-<section class="section">
-<div class="card">
-<h2>🧠 CT Viewer</h2>
-
-<div style="position:relative">
-<img id="ct" src="assets/ct/ct1.jpg" class="mx-auto w-80 rounded">
-<div id="aiBox"></div>
-</div>
-
-<p>Slice: <span id="slice">1</span></p>
-<input type="range" id="slider" min="1" max="10" value="1">
-</div>
-</section>
-
-<!-- DICOM -->
-<section class="section">
-<div class="card">
-<h2>🧬 DICOM Viewer</h2>
-
-<input type="file" id="dicomFile">
-<canvas id="dicomCanvas" width="300" height="300"></canvas>
-
-</div>
-</section>
-
-<!-- FIREBASE REACTION -->
-<section class="section">
-<div class="card">
-<h2>🔥 Live Reaction</h2>
-
-<button onclick="react('👍')">👍</button>
-<button onclick="react('🔥')">🔥</button>
-<button onclick="react('😮')">😮</button>
-
-<p>Total Reaction: <span id="liveCount">0</span></p>
-</div>
-</section>
-
-<!-- SCRIPT -->
 <script>
-
-/* ================= PACS ================= */
-let s=1;
-slider.oninput=()=>{s=slider.value;update();}
-function update(){
-ct.src=`assets/ct/ct${s}.jpg`;
-slice.innerText=s;
+function scrollToSection(){
+    window.scrollTo({ top: 600, behavior: 'smooth' });
 }
-
-/* SCROLL SLICE */
-window.addEventListener("wheel",e=>{
-s+=e.deltaY>0?1:-1;
-s=Math.max(1,Math.min(10,s));
-slider.value=s;
-update();
-});
-
-/* ================= AI DETECT ================= */
-function detectAI(){
-aiBox.style.display="block";
-aiBox.style.top=(100+Math.random()*100)+"px";
-aiBox.style.left=(100+Math.random()*100)+"px";
-}
-setInterval(detectAI,3000);
-
-/* ================= DICOM ================= */
-const canvas = document.getElementById('dicomCanvas');
-cornerstone.enable(canvas);
-
-dicomFile.addEventListener('change', function(e){
-let file = e.target.files[0];
-let imageId = cornerstoneWADOImageLoader.wadouri.fileManager.add(file);
-
-cornerstone.loadImage(imageId).then(img=>{
-cornerstone.displayImage(canvas, img);
-});
-});
-
-/* ================= VOICE INDONESIA ================= */
-function speakID(text){
-fetch("https://translate.google.com/translate_tts?ie=UTF-8&q="+encodeURIComponent(text)+"&tl=id&client=tw-ob")
-.then(res=>res.blob())
-.then(blob=>{
-let url=URL.createObjectURL(blob);
-new Audio(url).play();
-});
-}
-
-/* AUTO NARASI */
-window.addEventListener("scroll",()=>{
-document.querySelectorAll(".card").forEach(el=>{
-let r=el.getBoundingClientRect();
-if(r.top>0 && r.top<200){
-speakID(el.innerText);
-}
-});
-});
-
-/* ================= FIREBASE ================= */
-firebase.initializeApp({
-databaseURL:"https://poster-dr-maryadi-default-rtdb.asia-southeast1.firebasedatabase.app/"
-});
-
-let db = firebase.database();
-
-/* VISITOR */
-db.ref("visitor").push({time:Date.now()});
-
-/* REACTION */
-function react(e){
-db.ref("reaction").push({emoji:e});
-}
-
-/* LIVE COUNT */
-db.ref("reaction").on("value",snap=>{
-liveCount.innerText=snap.numChildren();
-});
-
-/* ================= SPOTLIGHT ================= */
-document.addEventListener("mousemove",e=>{
-document.querySelector(".spotlight").style.background=
-`radial-gradient(circle at ${e.clientX}px ${e.clientY}px, rgba(45,212,191,0.2), transparent 60%)`;
-});
-
-/* ================= FOCUS ================= */
-let sections=document.querySelectorAll(".section");
-window.addEventListener("scroll",()=>{
-let center=innerHeight/2;
-sections.forEach(sec=>{
-let r=sec.getBoundingClientRect();
-if(r.top<center && r.bottom>center){
-sec.classList.add("active");
-}else{
-sec.classList.remove("active");
-}
-});
-});
-
 </script>
+<section class="section">
+    <h2 class="glow">Clinical Case</h2>
+
+    <div class="card">
+        <p><b>Mrs. C, 49 years old</b></p>
+        <p>Symptoms:</p>
+        <ul>
+            <li>Epigastric pain</li>
+            <li>Vomiting</li>
+        </ul>
+    </div>
+
+    <div class="card" style="text-align:center;">
+        <h3>Are you sure only GERD & persistent pharyngitis?</h3>
+    </div>
+</section>
+<section class="section">
+    <h2 class="glow">CT Findings</h2>
+
+    <div class="card">
+        <ul>
+            <li>Herniation of gastric structure</li>
+            <li>Located above diaphragm</li>
+            <li>Widened hiatus suspected</li>
+        </ul>
+    </div>
+</section>
+<section class="section" style="text-align:center;">
+    <h2 class="glow">Quiz</h2>
+    <p>Which type of hiatus hernia?</p>
+
+    <button onclick="answer()">Type 1</button>
+    <button onclick="answer()">Type 2</button>
+    <button onclick="answer()">Type 3</button>
+    <button onclick="answer()">Type 4</button>
+
+    <p id="result"></p>
+</section>
+
+<script>
+function answer(){
+    document.getElementById("result").innerHTML =
+    "Correct answer depends on CT detail (likely Type 3 - mixed)";
+}
+</script>
+<section class="section">
+    <h2 class="glow">Definition</h2>
+
+    <div class="card">
+        Hiatus hernia occurs when abdominal contents herniate 
+        through the esophageal hiatus into the thoracic cavity
+    </div>
+
+    <h2 class="glow">Epidemiology</h2>
+
+    <div class="card">
+        <ul>
+            <li>< 40 years → ~10%</li>
+            <li>> 50–70 years → 30–50%</li>
+            <li>Slight female predominance</li>
+        </ul>
+    </div>
+</section>
+<section class="section">
+    <h2 class="glow">Types</h2>
+
+    <div class="card">Type 1: Sliding (~95%)</div>
+    <div class="card">Type 2: Paraesophageal</div>
+    <div class="card">Type 3: Mixed</div>
+    <div class="card">Type 4: Complex (with other organs)</div>
+</section>
+<section class="section">
+    <h2 class="glow">CT Features</h2>
+
+    <div class="card">
+        <ul>
+            <li>Stomach above diaphragm</li>
+            <li>Widened hiatus (>15 mm)</li>
+            <li>Separation of crura</li>
+        </ul>
+    </div>
+
+    <h2 class="glow">Treatment</h2>
+
+    <div class="card">
+        Symptomatic (Type 2–4) → Surgery<br>
+        Asymptomatic → Conservative
+    </div>
+</section>
+<section class="section">
+    <h2 class="glow">Complications</h2>
+
+    <div class="card">
+        <ul>
+            <li>Gastric volvulus</li>
+            <li>Obstruction</li>
+            <li>Ischemia</li>
+            <li>Respiratory failure</li>
+        </ul>
+    </div>
+
+    <h2 class="glow">Differential Diagnosis</h2>
+
+    <div class="card">
+        <ul>
+            <li>Retrocardiac lung abscess</li>
+            <li>Retrocardiac empyema</li>
+            <li>Esophageal diverticulum</li>
+        </ul>
+    </div>
+</section>
+<section class="section" style="text-align:center;">
+    <h2 class="glow">Credits</h2>
+
+    <div class="card">
+        <p>Courtesy: Mrs. C</p>
+        <p>dr. Bungsu, SpPD</p>
+
+        <p>Radiographers:</p>
+        <p>
+        Ino Hadiwinata<br>
+        Lalan Permana Herlambang<br>
+        Ardi Pratama Oktafiansyah
+        </p>
+    </div>
+
+    <p style="margin-top:40px; opacity:0.6;">
+        © Radiology RS Mitra Plumbon
+    </p>
+</section>
 
 </body>
 </html>
