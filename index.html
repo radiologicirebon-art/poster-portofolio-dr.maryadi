@@ -4,16 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia | ULTRA FINAL+</title>
+<title>Hiatus Hernia | Ultra Final Clinical</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-font-family:'Orbitron',sans-serif;
+font-family:Calibri, sans-serif;
 background:black;
 color:white;
 overflow:hidden;
@@ -25,7 +23,7 @@ position:fixed;
 width:100%;
 height:100%;
 background:url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1920') center/cover no-repeat;
-filter:brightness(0.4);
+filter:brightness(0.35);
 z-index:-1;
 }
 
@@ -38,38 +36,37 @@ display:flex;
 align-items:center;
 justify-content:center;
 text-align:center;
-padding:40px;
+padding:60px;
 opacity:0;
-transition:1s;
+transition:1.2s;
 }
-
 .active{opacity:1;}
 
+/* CARD */
 .card{
-background:rgba(255,255,255,0.08);
-padding:30px;
+background:rgba(0,0,0,0.65);
+padding:40px;
 border-radius:20px;
-max-width:900px;
-line-height:1.8;
-backdrop-filter:blur(12px);
+max-width:1000px;
+line-height:2;
+font-size:22px;
 }
 
 /* TITLE */
 .title{
-font-size:clamp(40px,7vw,80px);
-background:linear-gradient(90deg,#00f0ff,#00ffa6);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
+font-size:clamp(50px,8vw,90px);
+font-weight:bold;
+color:#00ffd5;
 }
 
-/* SUBTITLE HIGHLIGHT */
+/* HIGHLIGHT */
 .highlight span{
-opacity:0.3;
+opacity:0.4;
 transition:0.3s;
 }
 .highlight span.active{
 opacity:1;
-color:#00ffa6;
+color:#00ffd5;
 }
 
 /* SCORE */
@@ -78,9 +75,9 @@ position:fixed;
 top:20px;
 right:20px;
 background:black;
-padding:10px 20px;
+padding:12px 20px;
 border-radius:10px;
-border:1px solid #00ffa6;
+border:1px solid #00ffd5;
 }
 </style>
 </head>
@@ -90,12 +87,12 @@ border:1px solid #00ffa6;
 <div class="bg"></div>
 <div id="score">🏆 Score: 0</div>
 
-<!-- 🎧 AUDIO -->
+<!-- AUDIO -->
 <audio id="bgm" loop>
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_3a3c63d6c3.mp3">
 </audio>
 
-<!-- SLIDES (100% MATERIAL) -->
+<!-- SLIDES -->
 <div class="slide active"><div>
 <h1 class="title">Hiatus Hernia imaging on ct</h1>
 <p>Presented by Maryadi.dr.SpRad.K.Abdomen</p>
@@ -126,58 +123,56 @@ The prevalence of hiatus hernia increases with age, estimates go from about 10% 
 
 <div class="slide"><div class="card highlight">
 Clinical presentation<br><br>
-Many patients with a hiatus hernia are asymptomatic, and it is an incidental finding. However, symptoms may include epigastric or chest pain, postprandial fullness, nausea and vomiting. Sometimes hiatus hernias are considered synonymous with GERD, but there is a poor correlation between the two conditions.
+Many patients with a hiatus hernia are asymptomatic, and it is an incidental finding. However, symptoms may include epigastric or chest pain, postprandial fullness, nausea and vomiting. Sometimes hiatus hernias are considered synonymous with gastro-esophageal reflux disease (GERD), but there is a poor correlation between the two conditions.
 </div></div>
 
 <div class="slide"><div class="card highlight">
 Type<br><br>
-Type 1: sliding hiatal hernia (~95%)<br>
+Some divide them into four types:<br>
+Type  1:  sliding hiatal hernia (~95%)<br>
 Type 2: paraesophageal hiatal hernia with the gastro-esophageal junction in a normal position<br>
-Type 3: mixed or compound type<br>
-Type 4: with additional herniation of viscera
+Type 3: mixed or compound type, paraesophageal hiatal hernia with displaced gastro-esophageal junction<br>
+Type 4: mixed or compound type hiatal hernia with additional herniation of viscera
 </div></div>
 
 <div class="slide"><div class="card highlight">
 CT features<br><br>
-Herniated organs above the diaphragm<br>
-Widened esophageal hiatus >15mm
+Herniated organs: visualization of the stomach fundus (sliding hernia) or larger portions of the stomach and other viscera (paraesophageal hernia) above the diaphragm<br><br>
+Widened esophageal hiatus: the opening in the diaphragm where the esophagus passes is widened, with separation of the diaphragmatic crura >15mm, providing a clear passage for tissue
 </div></div>
 
 <div class="slide"><div class="card highlight">
 Treatment and prognosis<br><br>
-Symptomatic hiatus hernias should be managed surgically<br>
-Asymptomatic → conservative
+Symptomatic hiatus hernias, especially types 2-4, should be managed surgically<br><br>
+In asymptomatic individuals, especially those that are elderly or have significant comorbidities, there is increased evidence that conservative non-surgical management is preferred
 </div></div>
 
 <div class="slide"><div class="card highlight">
 Complications<br><br>
-Gastric volvulus, obstruction, ischemia, tension gastrothorax
+A hiatus hernia containing the stomach may result in a gastric volvulus, which in turn presents as intestinal obstruction and may result in ischemia/infarction, or very rarely a tension gastrothorax, causing respiratory failure and eventual cardiac arrest
 </div></div>
 
 <div class="slide"><div class="card highlight">
 Differential diagnosis<br><br>
-Retrocardiac lung abscess<br>
-Retrocardiac empyema<br>
-Epiphrenic esophageal diverticulum
+Retrocardiac lung abscess / Retrocardiac empyema / Epiphrenic esophageal diverticulum
 </div></div>
 
 <div class="slide"><div class="card highlight">
 References<br><br>
-Daly S et al 2024<br>
-Shahsavari D et al 2022<br>
-Kim J et al 2021
+Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775.<br><br>
+Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux. 2022<br><br>
+Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history. 2021
 </div></div>
 
 <div class="slide"><div class="card highlight">
-Please open this links:<br><br>
+Please open this links to further information:<br><br>
 https://youtu.be/j8CT7K_7rX0<br>
 https://youtube.com/shorts/qygFIhjGeZk<br>
 https://youtu.be/XK8GbbOfYzM
 </div></div>
 
 <div class="slide"><div class="card highlight">
-Courtesy with Mrs C, dr Bungsu SpPD and Mitra Plumbon Hospital<br><br>
-Thanks to radiographers:<br>
+Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital and thanks fully for our radiografers:<br><br>
 Mr. Ino Hadiwinata<br>
 Mr Lalan Permana Herlambang<br>
 Mr. Ardi Pratama Oktafiansyah and all.
@@ -188,41 +183,32 @@ let slides=document.querySelectorAll(".slide");
 let i=0;
 let score=0;
 
-/* 🎧 SOUND (fade in cinematic) */
+/* SOUND */
 let bgm=document.getElementById("bgm");
-bgm.volume=0;
+bgm.volume=0.15;
 bgm.play();
 
-let vol=0;
-let fade=setInterval(()=>{
-if(vol<0.25){
-vol+=0.01;
-bgm.volume=vol;
-}else clearInterval(fade);
-},200);
-
-/* 🎤 SPEAK + SYNC TEXT */
+/* VOICE */
 function speak(text,el){
 let words=text.split(" ");
 el.innerHTML = words.map(w=>`<span>${w}</span>`).join(" ");
-
 let spans=el.querySelectorAll("span");
 
 let speech=new SpeechSynthesisUtterance(text);
-speech.rate=0.85;
+speech.rate=0.75;
 
-let index=0;
+let idx=0;
 let interval=setInterval(()=>{
-if(spans[index]) spans[index].classList.add("active");
-index++;
-if(index>=spans.length) clearInterval(interval);
-},180);
+if(spans[idx]) spans[idx].classList.add("active");
+idx++;
+if(idx>=spans.length) clearInterval(interval);
+},300);
 
 speechSynthesis.cancel();
 speechSynthesis.speak(speech);
 }
 
-/* 🎬 AUTO SLIDE (adaptive timing) */
+/* SLIDE */
 function nextSlide(){
 slides[i].classList.remove("active");
 i++;
@@ -235,18 +221,18 @@ let el=slides[i].querySelector(".highlight") || slides[i];
 
 speak(text,el);
 
-/* ⏱️ durasi = panjang teks */
-let delay = Math.max(6000, text.length * 40);
+/* TEMPO IDEAL */
+let words = text.split(" ").length;
+let delay = words * 600;
 setTimeout(nextSlide, delay);
 }
 
-/* START */
 setTimeout(()=>{
 speak(slides[0].innerText,slides[0]);
 setTimeout(nextSlide,8000);
 },1500);
 
-/* 🏆 QUIZ */
+/* QUIZ */
 function answer(correct){
 if(correct){score+=10; alert("Correct!");}
 else{alert("Wrong!");}
