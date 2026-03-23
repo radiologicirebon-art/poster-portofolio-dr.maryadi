@@ -4,45 +4,35 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia CT Interactive</title>
+<title>Hiatus Hernia CT – Ultimate Interactive</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-background:#040712;
+background:#030712;
 color:white;
 font-family:'Poppins',sans-serif;
 overflow-x:hidden;
 }
 
-h1,h2,h3{
-font-family:'Orbitron',sans-serif;
-}
+/* TEXT */
+h1,h2,h3{font-family:'Orbitron',sans-serif;}
+.glow{color:#00eaff;text-shadow:0 0 15px #00eaff;}
+.center{text-align:center;}
 
+/* SECTION */
 .section{
 display:none;
 padding:80px 8%;
 animation:fade 0.8s ease;
 }
+.active{display:block;}
 
 @keyframes fade{
 from{opacity:0; transform:translateY(20px);}
 to{opacity:1;}
-}
-
-.active{
-display:block;
-}
-
-.glow{
-color:#00eaff;
-text-shadow:0 0 12px #00eaff;
-}
-
-.center{
-text-align:center;
 }
 
 /* OPENING */
@@ -52,8 +42,7 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-text-align:center;
-background:radial-gradient(circle,#0a1a3a,#040712);
+background:radial-gradient(circle,#0a1a3a,#030712);
 }
 
 /* BUTTON */
@@ -75,11 +64,6 @@ width:100%;
 background:rgba(0,0,0,0.8);
 display:flex;
 overflow-x:auto;
-}
-
-.nav button{
-flex:1;
-font-size:12px;
 }
 
 /* CARD */
@@ -120,7 +104,7 @@ margin:50px auto;
 display:block;
 }
 
-/* HIGHLIGHT */
+/* HIGHLIGHT ANIMATION */
 .highlight{
 position:relative;
 }
@@ -133,23 +117,59 @@ height:120px;
 border-radius:50%;
 top:40%;
 left:45%;
-box-shadow:0 0 20px #00eaff;
+box-shadow:0 0 25px #00eaff;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.1);}
+100%{transform:scale(1);}
+}
+
+/* SCAN EFFECT */
+.scanline{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+background:linear-gradient(
+rgba(0,255,255,0.05) 50%,
+transparent 50%);
+background-size:100% 4px;
+}
+
+/* SWIPE HINT */
+.swipe{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+font-size:12px;
+opacity:0.6;
 }
 </style>
 </head>
 
 <body>
 
+<div class="scanline"></div>
+
+<!-- AUDIO -->
+<audio id="sound" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+
 <!-- OPENING -->
 <div class="opening" id="opening">
 <h1 class="glow">HIATUS HERNIA</h1>
-<p>Interactive Radiology Experience</p>
+<p>Radiology Interactive Experience</p>
 <button onclick="start()">ENTER</button>
 </div>
 
-<!-- SECTION: HOME -->
+<!-- HOME -->
 <div id="home" class="section center">
-<h2 class="glow">Welcome</h2>
+<h2 class="glow">Clinical Insight</h2>
 <p>Not all GERD is just GERD...</p>
 </div>
 
@@ -184,10 +204,10 @@ Epigastric pain & vomiting
 
 <!-- ANALYSIS -->
 <div id="analysis" class="section">
-<h2 class="glow">Analysis</h2>
+<h2 class="glow">Radiological Analysis</h2>
 <div class="card">
 Mixed Hiatal Hernia (Type III)<br>
-• Stomach above diaphragm<br>
+• Herniated stomach<br>
 • GE junction displaced
 </div>
 </div>
@@ -204,9 +224,9 @@ Mixed Hiatal Hernia (Type III)<br>
 
 <!-- THEORY -->
 <div id="theory" class="section">
-<h2 class="glow">Key Theory</h2>
+<h2 class="glow">Theory</h2>
 <div class="card">
-Hiatus hernia = abdominal organ herniation into thorax
+Hiatus hernia = abdominal content into thorax
 </div>
 </div>
 
@@ -228,21 +248,21 @@ src="https://www.youtube.com/embed/j8CT7K_7rX0"></iframe>
 <!-- CONCLUSION -->
 <div id="end" class="section center">
 <h2 class="glow">Conclusion</h2>
-<p>CT is key to detect structural disease beyond GERD</p>
+<p>CT reveals hidden structural pathology</p>
 </div>
 
 <!-- NAV -->
 <div class="nav">
-<button onclick="show('home')">Home</button>
-<button onclick="show('case')">Case</button>
-<button onclick="show('ct')">CT</button>
-<button onclick="show('multi')">Multi</button>
-<button onclick="show('analysis')">Analysis</button>
-<button onclick="show('quiz')">Quiz</button>
-<button onclick="show('theory')">Theory</button>
-<button onclick="show('comp')">Risk</button>
-<button onclick="show('video')">Video</button>
-<button onclick="show('end')">End</button>
+<button onclick="go('home')">Home</button>
+<button onclick="go('case')">Case</button>
+<button onclick="go('ct')">CT</button>
+<button onclick="go('multi')">Multi</button>
+<button onclick="go('analysis')">Analysis</button>
+<button onclick="go('quiz')">Quiz</button>
+<button onclick="go('theory')">Theory</button>
+<button onclick="go('comp')">Risk</button>
+<button onclick="go('video')">Video</button>
+<button onclick="go('end')">End</button>
 </div>
 
 <!-- MODAL -->
@@ -253,16 +273,18 @@ src="https://www.youtube.com/embed/j8CT7K_7rX0"></iframe>
 <script>
 function start(){
 document.getElementById("opening").style.display="none";
-show('home');
+go('home');
 }
 
-function show(id){
+function go(id){
 document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
 document.getElementById(id).classList.add('active');
+playSound();
 }
 
 function ans(){
 document.getElementById("res").innerHTML="Correct: Type III";
+playSound();
 }
 
 function openModal(src){
@@ -272,6 +294,10 @@ document.getElementById("modalImg").src=src;
 
 function closeModal(){
 document.getElementById("modal").style.display="none";
+}
+
+function playSound(){
+document.getElementById("sound").play();
 }
 </script>
 
