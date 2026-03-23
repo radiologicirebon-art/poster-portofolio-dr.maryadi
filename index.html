@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cinematic Radiology Presentation</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+<style>
+body{
+margin:0;
+background:black;
+color:white;
+font-family:system-ui;
+overflow-x:hidden;
+}
+
+/* BACKGROUND CINEMATIC */
+.bg{
+position:fixed;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at center, rgba(45,212,191,0.1), transparent),
+url('https://images.unsplash.com/photo-1581595219315-a187dd40c322?q=80&w=1920') center/cover;
+z-index:-2;
+}
+
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+z-index:-1;
+}
+
+/* SECTION */
+.section{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px;
+transition:0.6s;
+}
+
+/* FOCUS */
+.section.active{
+transform:scale(1.08);
+}
+.section:not(.active){
+opacity:0.15;
+filter:blur(6px);
+}
+
+/* CARD */
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(25px);
+padding:30px;
+border-radius:20px;
+max-width:900px;
+box-shadow:0 20px 60px rgba(0,0,0,0.7);
+}
+
+/* HERO */
+.hero h1{
+font-size:clamp(40px,7vw,90px);
+font-weight:800;
+background:linear-gradient(90deg,#2dd4bf,#5eead4);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* SPOTLIGHT */
+.spotlight{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:1;
+}
+
+/* VIDEO */
+iframe{
+border-radius:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+<div class="spotlight"></div>
+
+<!-- HERO -->
+<section class="section hero">
+<div>
+<h1>Hiatus Hernia imaging on ct</h1>
+<p class="mt-4">Presented by Maryadi.dr.SpRad.K.Abdomen</p>
+<p class="opacity-70 mt-2">
+Just for reminder..are you sure only GERD and persisten pharyngitis!
+</p>
+</div>
+</section>
+
+<!-- CASE -->
+<section class="section">
+<div class="card">
+Mrs C, 49 years old, inpatient at Mitra Plumbon hospital Cirebon, with clinical symptoms epigastric pain and vomiting. CT result demonstrated:
+
+<br><br>
+<b>Which type of hiatus hernia do you think in this case?</b>
+</div>
+</section>
+
+<!-- VIDEO AUTO -->
+<section class="section">
+<div class="card">
+<h2 class="mb-4">Clinical Reference Video</h2>
+
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/j8CT7K_7rX0?enablejsapi=1"
+allow="autoplay"></iframe>
+
+</div>
+</section>
+
+<!-- PACS -->
+<section class="section">
+<div class="card">
+
+<h2 class="mb-4">CT Viewer</h2>
+
+<img id="ct" src="assets/ct/ct1.jpg" class="mx-auto w-80 rounded-xl">
+
+<p class="mt-2">Slice: <span id="slice">1</span></p>
+<input type="range" min="1" max="10" value="1" id="slider" class="w-full mt-4">
+
+</div>
+</section>
+
+<!-- MATERI (FULL ORIGINAL) -->
+<section class="section"><div class="card">
+Definition
+Hiatus hernias occur when there is herniation of abdominal contents through the esophageal hiatus of the diaphragm into the thoracic cavity
+</div></section>
+
+<section class="section"><div class="card">
+Epidemiology
+The prevalence of hiatus hernia increases with age, estimates go from about 10% under age 40 to ~30-50% in people over 50–70 years, with a slight female predilection.
+</div></section>
+
+<section class="section"><div class="card">
+Clinical presentation
+Many patients with a hiatus hernia are asymptomatic, and it is an incidental finding. However, symptoms may include epigastric or chest pain, postprandial fullness, nausea and vomiting. Sometimes hiatus hernias are considered synonymous with gastro-esophageal reflux disease (GERD), but there is a poor correlation between the two conditions.
+</div></section>
+
+<section class="section"><div class="card">
+Type
+Some divide them into four types:
+Type  1:  sliding hiatal hernia (~95%)
+Type 2: paraesophageal hiatal hernia with the gastro-esophageal junction in a normal position
+Type 3: mixed or compound type, paraesophageal hiatal hernia with displaced gastro-esophageal junction
+Type 4: mixed or compound type hiatal hernia with additional herniation of viscera
+</div></section>
+
+<section class="section"><div class="card">
+CT features
+Herniated organs: visualization of the stomach fundus (sliding hernia) or larger portions of the stomach and other viscera (paraesophageal hernia) above the diaphragm
+Widened esophageal hiatus: the opening in the diaphragm where the esophagus passes is widened, with separation of the diaphragmatic crura >15mm, providing a clear passage for tissue
+</div></section>
+
+<section class="section"><div class="card">
+Treatment and prognosis
+Symptomatic hiatus hernias, especially types 2-4, should be managed surgically
+In asymptomatic individuals, especially those that are elderly or have significant comorbidities, there is increased evidence that conservative non-surgical management is preferred
+</div></section>
+
+<section class="section"><div class="card">
+Complications
+A hiatus hernia containing the stomach may result in a gastric volvulus, which in turn presents as intestinal obstruction and may result in ischemia/infarction, or very rarely a tension gastrothorax, causing respiratory failure and eventual cardiac arrest
+</div></section>
+
+<section class="section"><div class="card">
+Differential diagnosis
+Retrocardiac lung abscess / Retrocardiac empyema / Epiphrenic esophageal diverticulum
+</div></section>
+
+<section class="section"><div class="card">
+References
+Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775. doi:10.1007/s00464-024-11092-3
+Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux: size larger than 2 cm matters. Dis Esophagus. 2022;35(8):doac001. doi:10.1093/dote/doac001
+Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history on non- contrast CT in the Multi-Ethnic Study of Atherosclerosis (MESA). BMJ Open Gastroenterol. 2021;8(1):e000565. doi:10.1136/bmjgast-2020-000565
+</div></section>
+
+<section class="section"><div class="card">
+Please open this links to further information:
+https://youtu.be/j8CT7K_7rX0?si=1PIPGlyjVqPezOu6 https://youtube.com/shorts/qygFIhjGeZk?si=Mz_lZlFP-w-fmRxe https://youtu.be/XK8GbbOfYzM?si=zOFLywxafLz7BT0M
+</div></section>
+
+<section class="section"><div class="card">
+Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital and thanks fully for our radiografers: Mr. Ino Hadiwinata, Mr Lalan Permana Herlambang, Mr. Ardi Pratama Oktafiansyah and all.
+</div></section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* CINEMATIC ANIMATION */
+gsap.from(".hero h1",{opacity:0,y:80,duration:1.5});
+gsap.from(".hero p",{opacity:0,y:30,delay:0.5});
+
+/* PACS */
+let s=1;
+slider.oninput=()=>{s=slider.value;update();}
+function update(){
+ct.src=`assets/ct/ct${s}.jpg`;
+slice.innerText=s;
+}
+
+/* SPOTLIGHT */
+document.addEventListener("mousemove",e=>{
+document.querySelector(".spotlight").style.background=
+`radial-gradient(circle at ${e.clientX}px ${e.clientY}px, rgba(45,212,191,0.25), transparent 60%)`;
+});
+
+/* FOCUS */
+let sections=document.querySelectorAll(".section");
+window.addEventListener("scroll",()=>{
+let center=innerHeight/2;
+sections.forEach(sec=>{
+let r=sec.getBoundingClientRect();
+if(r.top<center && r.bottom>center){
+sec.classList.add("active");
+}else{
+sec.classList.remove("active");
+}
+});
+});
+
+/* AUTO VOICE */
+let speaking=false;
+function speak(text){
+if(speaking)return;
+speaking=true;
+let u=new SpeechSynthesisUtterance(text);
+u.rate=0.9;
+u.pitch=1;
+u.onend=()=>speaking=false;
+speechSynthesis.speak(u);
+}
+
+window.addEventListener("scroll",()=>{
+document.querySelectorAll(".card").forEach(el=>{
+let r=el.getBoundingClientRect();
+if(r.top>0 && r.top<200){
+speak(el.innerText);
+}
+});
+});
+</script>
+
+</body>
+</html>
