@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hiatus Hernia CT | Radiology</title>
+<title>Hiatus Hernia CT | Radiology Excellence</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -26,7 +26,7 @@ h1,h2,h3{
 
 .glow{
     color:#00eaff;
-    text-shadow:0 0 10px #00eaff;
+    text-shadow:0 0 12px #00eaff;
 }
 
 .card{
@@ -53,18 +53,12 @@ button{
     margin:5px;
 }
 
-img{
-    max-width:100%;
-}
-
-/* GRID */
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
 }
 
-/* MODAL */
 .modal{
     display:none;
     position:fixed;
@@ -83,11 +77,7 @@ img{
     margin-top:50px;
 }
 
-/* HIGHLIGHT */
-.highlight-box{
-    position:relative;
-}
-
+.highlight-box{position:relative;}
 .highlight-circle{
     position:absolute;
     border:3px solid #00eaff;
@@ -99,7 +89,6 @@ img{
     box-shadow:0 0 20px #00eaff;
 }
 
-/* HERO */
 .hero{
     text-align:center;
     padding:120px 10%;
@@ -112,11 +101,20 @@ img{
 
 <!-- HERO -->
 <section class="hero">
-    <h1 class="glow">HIATUS HERNIA</h1>
-    <h2>Imaging on CT</h2>
-    <p>Maryadi, dr., Sp.Rad(K). Abdomen</p>
-    <p>RS Mitra Plumbon – Cirebon</p>
-    <button onclick="scrollToSection()">Explore Case</button>
+<h1 class="glow">HIATUS HERNIA</h1>
+<h2>Imaging on CT</h2>
+<p>Maryadi, dr., Sp.Rad(K). Abdomen</p>
+<p>RS Mitra Plumbon – Cirebon</p>
+<button onclick="scrollToSection()">Explore Case</button>
+</section>
+
+<!-- HOOK -->
+<section class="section" style="text-align:center;">
+<h2 class="glow">Clinical Challenge</h2>
+<div class="card">
+<h3>Not all GERD is just GERD...</h3>
+<p>Persistent symptoms may hide structural pathology visible on CT</p>
+</div>
 </section>
 
 <!-- CASE -->
@@ -129,10 +127,6 @@ img{
 <li>Vomiting</li>
 </ul>
 </div>
-
-<div class="card" style="text-align:center;">
-<h3>Are you sure only GERD & persistent pharyngitis?</h3>
-</div>
 </section>
 
 <!-- CT FINDINGS -->
@@ -140,17 +134,16 @@ img{
 <h2 class="glow">CT Findings</h2>
 <div class="card">
 <ul>
-<li>Herniation of gastric structure above diaphragm</li>
-<li>Widened esophageal hiatus</li>
-<li>Suspicious mixed type hernia</li>
+<li>Herniation of stomach above diaphragm</li>
+<li>Widened hiatus</li>
+<li>Suspicion of mixed type hernia</li>
 </ul>
 </div>
 </section>
 
-<!-- CT MAIN -->
+<!-- MAIN IMAGE -->
 <section class="section">
-<h2 class="glow">CT Imaging Highlight</h2>
-
+<h2 class="glow">CT Highlight</h2>
 <div class="highlight-box">
 <img src="ct1.jpg" onclick="openModal(this.src)">
 <div class="highlight-circle"></div>
@@ -162,7 +155,6 @@ img{
 <h2 class="glow">CT Multi View</h2>
 
 <div class="grid">
-
 <div class="card">
 <h3>Axial</h3>
 <img src="axial.jpg" onclick="openModal(this.src)">
@@ -179,17 +171,48 @@ img{
 </div>
 
 <div class="card">
-<h3>3D Reconstruction</h3>
+<h3>3D</h3>
 <img src="3d.jpg" onclick="openModal(this.src)">
 </div>
+</div>
+</section>
 
+<!-- LABEL -->
+<section class="section">
+<h2 class="glow">Annotated CT</h2>
+
+<div style="position:relative;">
+<img src="axial.jpg">
+
+<div style="position:absolute; top:45%; left:60%; background:#00eaff; padding:4px 8px; border-radius:5px; color:black;">
+Herniated Stomach
+</div>
+
+<div style="position:absolute; top:60%; left:40%; background:red; padding:4px 8px; border-radius:5px;">
+Diaphragm
+</div>
+</div>
+</section>
+
+<!-- ANALYSIS -->
+<section class="section">
+<h2 class="glow">Radiological Interpretation</h2>
+
+<div class="card">
+<ul>
+<li>Gastric fundus above diaphragm</li>
+<li>GE junction displacement</li>
+<li>Hiatus > 15 mm</li>
+</ul>
+
+<p><b>Diagnosis: Type III (Mixed Hiatal Hernia)</b></p>
 </div>
 </section>
 
 <!-- QUIZ -->
 <section class="section" style="text-align:center;">
 <h2 class="glow">Quiz</h2>
-<p>Which type of hiatus hernia?</p>
+<p>Which type?</p>
 
 <button onclick="answer()">Type 1</button>
 <button onclick="answer()">Type 2</button>
@@ -202,16 +225,13 @@ img{
 <!-- THEORY -->
 <section class="section">
 <h2 class="glow">Definition</h2>
-<div class="card">
-Herniation of abdominal contents through esophageal hiatus into thoracic cavity
-</div>
+<div class="card">Herniation through esophageal hiatus into thorax</div>
 
 <h2 class="glow">Epidemiology</h2>
 <div class="card">
 <ul>
-<li>< 40 years: ~10%</li>
-<li>> 50–70 years: 30–50%</li>
-<li>Female predominance</li>
+<li>< 40: 10%</li>
+<li>> 50–70: 30–50%</li>
 </ul>
 </div>
 </section>
@@ -220,10 +240,10 @@ Herniation of abdominal contents through esophageal hiatus into thoracic cavity
 <section class="section">
 <h2 class="glow">Types</h2>
 <div class="grid">
-<div class="card">Type 1 – Sliding</div>
-<div class="card">Type 2 – Paraesophageal</div>
-<div class="card">Type 3 – Mixed</div>
-<div class="card">Type 4 – Complex</div>
+<div class="card">Type 1</div>
+<div class="card">Type 2</div>
+<div class="card">Type 3</div>
+<div class="card">Type 4</div>
 </div>
 </section>
 
@@ -233,8 +253,7 @@ Herniation of abdominal contents through esophageal hiatus into thoracic cavity
 <div class="card">
 <ul>
 <li>Stomach above diaphragm</li>
-<li>Hiatus widening >15 mm</li>
-<li>Crura separation</li>
+<li>Hiatus widening</li>
 </ul>
 </div>
 </section>
@@ -243,8 +262,8 @@ Herniation of abdominal contents through esophageal hiatus into thoracic cavity
 <section class="section">
 <h2 class="glow">Treatment</h2>
 <div class="card">
-Symptomatic → Surgery<br>
-Asymptomatic → Conservative
+Surgery (symptomatic)<br>
+Conservative (asymptomatic)
 </div>
 </section>
 
@@ -253,20 +272,38 @@ Asymptomatic → Conservative
 <h2 class="glow">Complications</h2>
 <div class="card">
 <ul>
-<li>Gastric volvulus</li>
-<li>Obstruction</li>
+<li>Volvulus</li>
 <li>Ischemia</li>
 <li>Respiratory failure</li>
 </ul>
 </div>
+</section>
 
-<h2 class="glow">Differential Diagnosis</h2>
+<!-- VIDEO -->
+<section class="section">
+<h2 class="glow">Video</h2>
 <div class="card">
-<ul>
-<li>Retrocardiac abscess</li>
-<li>Empyema</li>
-<li>Esophageal diverticulum</li>
-</ul>
+<iframe width="100%" height="400"
+src="https://www.youtube.com/embed/j8CT7K_7rX0"
+frameborder="0" allowfullscreen></iframe>
+</div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="section">
+<h2 class="glow">Conclusion</h2>
+<div class="card">
+CT is essential to detect structural pathology beyond GERD and prevent complications.
+</div>
+</section>
+
+<!-- TAKE HOME -->
+<section class="section" style="text-align:center;">
+<h2 class="glow">Take Home Message</h2>
+<div class="card">
+<p>Not all GERD is functional</p>
+<p>CT is key</p>
+<p>Early detection saves lives</p>
 </div>
 </section>
 
@@ -275,12 +312,9 @@ Asymptomatic → Conservative
 <h2 class="glow">Credits</h2>
 <div class="card">
 Mrs. C<br>
-dr. Bungsu, SpPD<br><br>
-
-Radiographers:<br>
+dr. Bungsu<br>
 Ino Hadiwinata<br>
-Lalan Permana Herlambang<br>
-Ardi Pratama Oktafiansyah
+Team Radiology
 </div>
 </section>
 
@@ -295,7 +329,7 @@ window.scrollTo({top:600,behavior:'smooth'});
 }
 
 function answer(){
-document.getElementById("result").innerHTML="Most likely Type 3 (Mixed Hiatal Hernia)";
+document.getElementById("result").innerHTML="Correct: Type III Mixed Hiatal Hernia";
 }
 
 function openModal(src){
