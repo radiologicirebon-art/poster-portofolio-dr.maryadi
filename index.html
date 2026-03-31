@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PACS Workstation - Hiatus Hernia Imaging</title>
+    <title>PACS Enterprise - Hiatus Hernia Case Study</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
             --pacs-bg: #050505;
             --panel-bg: #121212;
             --accent: #00b4d8;
-            --warning: #f1c40f;
-            --danger: #e63946;
-            --text-main: #e0e0e0;
-            --text-muted: #a0a0a0;
             --border: #2a2a2a;
+            --text-main: #e0e0e0;
         }
 
         body {
@@ -28,344 +25,278 @@
             overflow: hidden;
         }
 
-        /* HEADER: PACS PATIENT BAR */
+        /* HEADER */
         header {
             background: var(--panel-bg);
             border-bottom: 1px solid var(--border);
-            padding: 12px 25px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-            z-index: 10;
+            height: 50px;
         }
 
-        .logo-area { display: flex; flex-direction: column; }
-        .logo-area span:first-child { font-weight: 800; font-size: 1.1rem; color: var(--accent); letter-spacing: 1px; }
-        .logo-area span:last-child { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
-
-        .patient-info {
+        .patient-bar {
             font-family: 'Roboto Mono', monospace;
-            text-align: center;
-            background: #1a1a1a;
-            padding: 5px 20px;
-            border-radius: 4px;
+            background: #000;
+            padding: 5px 15px;
             border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: var(--accent);
         }
 
-        .hospital-info { text-align: right; font-size: 0.8rem; line-height: 1.2; }
-
-        /* MAIN CONTENT LAYOUT */
-        .main-layout {
+        /* MAIN LAYOUT */
+        .workspace {
             display: grid;
-            grid-template-columns: 400px 1fr;
+            grid-template-columns: 320px 1fr 220px; /* Tiga kolom: Materi, Viewer, Gallery */
             flex-grow: 1;
             overflow: hidden;
         }
 
-        /* SIDEBAR: SCIENTIFIC CONTENT */
-        .sidebar {
+        /* LEFT SIDEBAR: CONTENT */
+        .content-sidebar {
             background: var(--panel-bg);
             border-right: 1px solid var(--border);
             padding: 20px;
             overflow-y: auto;
-            scrollbar-width: thin;
-        }
-
-        .alert-box {
-            background: rgba(241, 196, 15, 0.1);
-            border-left: 4px solid var(--warning);
-            padding: 12px;
-            font-style: italic;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            color: var(--warning);
         }
 
         .card {
-            background: rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 18px;
-            margin-bottom: 20px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
         }
 
         .card h2 {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--accent);
             text-transform: uppercase;
             margin-top: 0;
             border-bottom: 1px solid var(--border);
-            padding-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            padding-bottom: 5px;
         }
 
-        .card p, .card li { font-size: 0.88rem; color: #ccc; line-height: 1.5; }
-        ul { padding-left: 18px; margin: 10px 0; }
-        li { margin-bottom: 8px; }
+        .card p, .card li { font-size: 0.8rem; line-height: 1.4; color: #bbb; }
 
-        .tag {
-            display: inline-block;
-            background: var(--accent);
-            color: #000;
-            font-size: 0.7rem;
-            font-weight: bold;
-            padding: 2px 6px;
-            border-radius: 3px;
-            margin-right: 5px;
-        }
-
-        /* VIEWER AREA: CT IMAGES */
-        .viewer-container {
+        /* CENTER: MAIN VIEWER */
+        .viewer-main {
+            background: #000;
+            position: relative;
             display: flex;
             flex-direction: column;
-            background: #000;
+            border-right: 1px solid var(--border);
         }
 
         .viewport {
             flex-grow: 1;
-            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 10px;
-            border: 1px solid #1a1a1a;
-            background-image: radial-gradient(#111 1px, transparent 1px);
-            background-size: 40px 40px;
+            position: relative;
             overflow: hidden;
         }
 
-        #active-frame {
-            max-width: 95%;
-            max-height: 95%;
+        #active-image {
+            max-width: 98%;
+            max-height: 98%;
             object-fit: contain;
-            transition: opacity 0.3s ease;
+            cursor: crosshair;
         }
 
         /* DICOM OVERLAYS */
-        .dicom-overlay {
+        .overlay {
             position: absolute;
             font-family: 'Roboto Mono', monospace;
-            font-size: 11px;
-            color: rgba(255,255,255,0.6);
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
             pointer-events: none;
-            text-shadow: 1px 1px 2px #000;
-            line-height: 1.4;
+            text-shadow: 1px 1px 1px #000;
         }
-        .tl { top: 20px; left: 20px; }
-        .tr { top: 20px; right: 20px; text-align: right; }
-        .bl { bottom: 20px; left: 20px; }
-        .br { bottom: 20px; right: 20px; text-align: right; }
+        .tl { top: 15px; left: 15px; }
+        .tr { top: 15px; right: 15px; text-align: right; }
+        .bl { bottom: 15px; left: 15px; }
+        .br { bottom: 15px; right: 15px; text-align: right; }
 
-        /* THUMBNAIL BAR */
-        .thumbnails {
-            height: 130px;
+        /* RIGHT SIDEBAR: IMAGE LIST (UNTUK >25 GAMBAR) */
+        .image-gallery {
             background: var(--panel-bg);
-            border-top: 1px solid var(--border);
-            display: flex;
             padding: 10px;
-            gap: 12px;
-            overflow-x: auto;
-            align-items: center;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .thumb-box {
-            height: 100px;
-            min-width: 100px;
-            background: #111;
+        .gallery-header {
+            font-size: 0.7rem;
+            color: var(--text-main);
+            text-align: center;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 5px;
+        }
+
+        .thumb-item {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #000;
             border: 2px solid transparent;
             border-radius: 4px;
             cursor: pointer;
             overflow: hidden;
             position: relative;
+        }
+
+        .thumb-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
             transition: 0.2s;
         }
 
-        .thumb-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
-        .thumb-box:hover img { opacity: 0.8; }
-        .thumb-box.active { border-color: var(--accent); }
-        .thumb-box.active img { opacity: 1; }
-        .thumb-label {
+        .thumb-item:hover img { opacity: 1; }
+        .thumb-item.active { border-color: var(--accent); }
+        .thumb-item.active img { opacity: 1; }
+
+        .slice-number {
             position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.7);
+            top: 2px;
+            left: 2px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
             font-size: 9px;
-            text-align: center;
-            padding: 2px 0;
+            padding: 0 4px;
+            border-radius: 2px;
         }
 
-        /* FOOTER */
+        /* SCROLLBAR CUSTOM */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+
         footer {
+            height: 30px;
             background: #0a0a0a;
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            padding: 10px 25px;
-            border-top: 1px solid var(--border);
+            font-size: 0.7rem;
             display: flex;
+            align-items: center;
+            padding: 0 20px;
+            color: #666;
             justify-content: space-between;
         }
-
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-area">
-            <span>RADIOLOGY PORTAL</span>
-            <span>E-Poster Case Study</span>
+        <div style="font-weight: bold; color: var(--accent);">PRO-PACS VIEWER <span style="color:#fff; font-weight:300;">| Case Study</span></div>
+        <div class="patient-bar">
+            MRS. C (49Y) | STUDY ID: MP-2026-HIATUS | MODALITY: CT
         </div>
-        <div class="patient-info">
-            MRS. C | 49Y | FEMALE | CT ABDOMEN-PELVIS | ID: MP-1977-0422
-        </div>
-        <div class="hospital-info">
-            <strong>Mitra Plumbon Hospital</strong><br>
-            Cirebon, West Java
+        <div style="font-size: 0.7rem; text-align: right;">
+            MITRA PLUMBON HOSPITAL<br>
+            RADIOLOGIST: dr. Maryadi, Sp.Rad(K)
         </div>
     </header>
 
-    <div class="main-layout">
-        <aside class="sidebar">
-            <div class="alert-box">
-                "Just for reminder..are you sure only GERD and persistent pharyngitis!"
+    <div class="workspace">
+        <aside class="content-sidebar">
+            <div class="card" style="border-left: 3px solid var(--accent);">
+                <h2>Clinical Presentation</h2>
+                <p>Nyeri epigastrium & muntah. Penting untuk membedakan dengan GERD murni atau faringitis persisten.</p>
             </div>
 
             <div class="card">
-                <h2>Presentation</h2>
-                <p>Pasien datang dengan <strong>epigastric pain</strong> dan <strong>muntah</strong>. Banyak kasus hernia hiatus bersifat asimtomatik (temuan insidental), namun korelasi antara hernia dan GERD seringkali tidak berjalan lurus.</p>
-            </div>
-
-            <div class="card">
-                <h2>Definition & Epidemiology</h2>
+                <h2>Diagnostic Criteria</h2>
                 <ul>
-                    <li><strong>Definisi:</strong> Herniasi konten abdomen melalui hiatus esofagus diafragma ke dalam rongga toraks.</li>
-                    <li><strong>Prevalensi:</strong> Meningkat seiring usia (~10% usia <40, naik hingga 50% pada usia >50 tahun). Predileksi ringan pada wanita.</li>
+                    <li>Herniasi organ abdomen ke rongga toraks.</li>
+                    <li>Pemisahan crura diafragma >15mm (CT Key Finding).</li>
+                    <li>Tipe 1 (Sliding) adalah kasus paling umum (95%).</li>
                 </ul>
             </div>
 
-            <div class="card">
-                <h2>Classification (SAGES)</h2>
-                <p>Terbagi menjadi 4 tipe utama:</p>
-                <ul style="list-style: none; padding: 0;">
-                    <li><span class="tag">Type 1</span> <strong>Sliding Hiatal Hernia</strong> (Kasus tersering ~95%).</li>
-                    <li><span class="tag">Type 2</span> Paraesophageal (GE junction posisi normal).</li>
-                    <li><span class="tag">Type 3</span> Mixed (Paraesophageal dengan GE junction bergeser).</li>
-                    <li><span class="tag">Type 4</span> Mixed dengan tambahan herniasi organ visera lain.</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>CT Radiographic Features</h2>
-                <p>Visualisasi fundus lambung atau organ visera di atas diafragma. Karakteristik kunci adalah pelebaran hiatus esofagus dengan <strong>separasi crura diafragma >15mm</strong>.</p>
-            </div>
-
-            <div class="card" style="border-left: 4px solid var(--danger);">
-                <h2>Complications</h2>
-                <p>Berisiko menyebabkan <strong>Gastric Volvulus</strong>, obstruksi usus, iskemia, infark, hingga <em>tension gastrothorax</em> yang dapat memicu gagal napas mendadak.</p>
+            <div class="card" style="border-left: 3px solid #e63946;">
+                <h2>Risk & Complications</h2>
+                <p>Waspadai <strong>Gastric Volvulus</strong> dan <em>Tension Gastrothorax</em> yang bersifat fatal.</p>
             </div>
 
             <div class="card">
                 <h2>Management</h2>
-                <p>Simtomatik (terutama tipe 2-4) memerlukan <strong>tindakan bedah</strong>. Pada pasien asimtomatik atau lansia dengan komorbiditas berat, manajemen konservatif lebih diutamakan.</p>
-            </div>
-
-            <div class="card">
-                <h2>References</h2>
-                <p style="font-size: 0.75rem;">
-                    1. Daly S, et al. SAGES Guidelines, Surg Endosc 2024.<br>
-                    2. Shahsavari D, et al. Dis Esophagus 2022.<br>
-                    3. Kim J, et al. BMJ Open Gastroenterol 2021.
-                </p>
-                <div style="margin-top:10px;">
-                    <a href="https://youtu.be/j8CT7K_7rX0" target="_blank">🎥 Video Edukasi 1</a> | 
-                    <a href="https://youtu.be/XK8GbbOfYzM" target="_blank">🎥 Video Edukasi 2</a>
-                </div>
+                <p>Operatif untuk tipe simtomatik (2-4). Konservatif untuk asimtomatik/lansia.</p>
             </div>
         </aside>
 
-        <main class="viewer-container">
-            <div class="viewport" id="viewport">
-                <div class="dicom-overlay tl">
-                    PATIENT NAME: MRS. C<br>
-                    PATIENT ID: 19770422<br>
-                    SEX: F<br>
-                    AGE: 49Y
-                </div>
-                <div class="dicom-overlay tr">
-                    MITRA PLUMBON HOSPITAL<br>
-                    CT 64 SLICE<br>
-                    KVP: 120 / MAS: 250<br>
-                    THICKNESS: 1.25mm
-                </div>
-                <div class="dicom-overlay bl">
-                    STUDY: ABDOMEN CONTRAST<br>
-                    DATE: 2026-03-31<br>
-                    TIME: 14:30:12
-                </div>
-                <div class="dicom-overlay br" id="view-label">
-                    VIEW: AXIAL RECON<br>
-                    W: 400 L: 40<br>
-                    ZOOM: 100%
-                </div>
+        <main class="viewer-main">
+            <div class="viewport">
+                <div class="overlay tl">Name: MRS. C<br>ID: 19770422<br>Sex: F</div>
+                <div class="overlay tr">CT ABDOMEN<br>Thk: 1.25mm<br>Se: 1</div>
+                <div class="overlay bl">Hospital: Mitra Plumbon<br>Date: 31/03/2026</div>
+                <div class="overlay br" id="dicom-info">Slice: 1 / 25<br>W: 400 L: 40</div>
 
-                <img id="active-frame" src="https://via.placeholder.com/1000x800/000000/00b4d8?text=SILAKAN+PILIH+GAMBAR+DI+BAWAH" alt="PACS Main View">
-            </div>
-
-            <div class="thumbnails">
-                <div class="thumb-box active" onclick="changeImage(this, 'AXIAL VIEW - HIATUS OPENING', 'AXIAL VIEW')">
-                    <img src="https://via.placeholder.com/200?text=AXIAL+1" alt="Axial">
-                    <div class="thumb-label">AXIAL 1</div>
-                </div>
-                <div class="thumb-box" onclick="changeImage(this, 'CORONAL RECON - HERNIA POSITION', 'CORONAL VIEW')">
-                    <img src="https://via.placeholder.com/200?text=CORONAL" alt="Coronal">
-                    <div class="thumb-label">CORONAL</div>
-                </div>
-                <div class="thumb-box" onclick="changeImage(this, 'SAGITTAL RECON - HIATUS WIDENING', 'SAGITTAL VIEW')">
-                    <img src="https://via.placeholder.com/200?text=SAGITTAL" alt="Sagittal">
-                    <div class="thumb-label">SAGITTAL</div>
-                </div>
-                <div class="thumb-box" onclick="changeImage(this, '3D VOLUME RENDERING', '3D RECON')">
-                    <img src="https://via.placeholder.com/200?text=3D+RECON" alt="3D">
-                    <div class="thumb-label">3D VIEW</div>
-                </div>
-                <div class="thumb-box" onclick="changeImage(this, 'DIAGRAM - HERNIA TYPES 1-4', 'DIAGRAM')">
-                    <img src="https://via.placeholder.com/200?text=DIAGRAM" alt="Diagram">
-                    <div class="thumb-label">DIAGRAM</div>
-                </div>
+                <img id="active-image" src="https://via.placeholder.com/1000x800/000000/00b4d8?text=LOAD+CT+STUDY" alt="PACS View">
             </div>
         </main>
+
+        <aside class="image-gallery" id="gallery">
+            <div class="gallery-header">SERIES SLICES (25+)</div>
+            </aside>
     </div>
 
     <footer>
-        <div>Case by: <strong>dr. Maryadi, Sp.Rad(K)Abdomen</strong> | Consultant Radiologist</div>
-        <div>Courtesy: dr. Bungsu, Sp.PD & Radiographers (Ino H, Lalan P, Ardi P)</div>
+        <div>© 2026 Portal Radiologi Indonesia</div>
+        <div>Courtesy: dr. Bungsu, Sp.PD | Radiographer Team: Ino H, Lalan P, Ardi P.</div>
     </footer>
 
     <script>
-        function changeImage(element, desc, viewType) {
-            // Update Main Image (Ganti src ini dengan path gambar aslimu)
-            const mainImg = document.getElementById('active-frame');
-            const thumbImg = element.getElementsByTagName('img')[0].src;
-            
-            mainImg.style.opacity = 0;
+        // Simulasi database gambar (Ganti URL dengan gambar aslimu)
+        // Jika kamu punya 25 gambar, masukkan semua ke array ini
+        const imageDatabase = [];
+        for(let i = 1; i <= 30; i++) {
+            imageDatabase.push({
+                id: i,
+                url: `https://via.placeholder.com/400?text=SLICE+${i}`, // Ganti ini
+                label: `Slice ${i}`
+            });
+        }
+
+        const gallery = document.getElementById('gallery');
+        const activeImg = document.getElementById('active-image');
+        const info = document.getElementById('dicom-info');
+
+        // Render Thumbnails
+        imageDatabase.forEach((img, index) => {
+            const div = document.createElement('div');
+            div.className = `thumb-item ${index === 0 ? 'active' : ''}`;
+            div.innerHTML = `
+                <span class="slice-number">${img.id}</span>
+                <img src="${img.url}" alt="${img.label}">
+            `;
+            div.onclick = () => selectImage(img.url, index + 1, div);
+            gallery.appendChild(div);
+        });
+
+        function selectImage(url, sliceNum, element) {
+            // Update Main View
+            activeImg.style.opacity = '0.5';
             setTimeout(() => {
-                mainImg.src = thumbImg;
-                mainImg.style.opacity = 1;
-            }, 200);
+                activeImg.src = url;
+                activeImg.style.opacity = '1';
+            }, 100);
 
-            // Update DICOM Overlay Label
-            document.getElementById('view-label').innerHTML = `VIEW: ${viewType}<br>W: 400 L: 40<br>ZOOM: 100%`;
+            // Update Info
+            info.innerHTML = `Slice: ${sliceNum} / ${imageDatabase.length}<br>W: 400 L: 40`;
 
-            // Update Active State Thumbnail
-            document.querySelectorAll('.thumb-box').forEach(box => box.classList.remove('active'));
+            // Update UI Active
+            document.querySelectorAll('.thumb-item').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
+        }
+
+        // Jalankan gambar pertama otomatis
+        if(imageDatabase.length > 0) {
+            activeImg.src = imageDatabase[0].url;
         }
     </script>
 </body>
