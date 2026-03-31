@@ -3,239 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hiatus Hernia Imaging on CT - E-Poster Portal Radiologi</title>
+    <title>PACS Workstation - Hiatus Hernia Imaging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #0d2c4a; /* Dark blue ala medical sites */
-            --secondary-color: #1a5276;
-            --accent-color: #e67e22;
-            --bg-color: #f4f6f9;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --white: #ffffff;
+            --pacs-bg: #050505;
+            --panel-bg: #121212;
+            --accent: #00b4d8;
+            --warning: #f1c40f;
+            --danger: #e63946;
+            --text-main: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border: #2a2a2a;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--pacs-bg);
             color: var(--text-main);
-            line-height: 1.6;
             margin: 0;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
         }
 
+        /* HEADER: PACS PATIENT BAR */
         header {
-            background-color: var(--primary-color);
-            color: var(--white);
-            padding: 2rem 0;
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            z-index: 10;
+        }
+
+        .logo-area { display: flex; flex-direction: column; }
+        .logo-area span:first-child { font-weight: 800; font-size: 1.1rem; color: var(--accent); letter-spacing: 1px; }
+        .logo-area span:last-child { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+
+        .patient-info {
+            font-family: 'Roboto Mono', monospace;
             text-align: center;
-            border-bottom: 5px solid var(--accent-color);
+            background: #1a1a1a;
+            padding: 5px 20px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            letter-spacing: 1px;
-        }
+        .hospital-info { text-align: right; font-size: 0.8rem; line-height: 1.2; }
 
-        header p {
-            margin: 10px 0 0 0;
-            font-size: 1.1rem;
-            color: #d6eaf8;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 0 20px;
+        /* MAIN CONTENT LAYOUT */
+        .main-layout {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 20px;
+            grid-template-columns: 400px 1fr;
+            flex-grow: 1;
+            overflow: hidden;
         }
 
-        .card {
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            padding: 25px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--secondary-color);
-        }
-
-        .card h2 {
-            color: var(--primary-color);
-            margin-top: 0;
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 10px;
-            font-size: 1.4rem;
+        /* SIDEBAR: SCIENTIFIC CONTENT */
+        .sidebar {
+            background: var(--panel-bg);
+            border-right: 1px solid var(--border);
+            padding: 20px;
+            overflow-y: auto;
+            scrollbar-width: thin;
         }
 
         .alert-box {
-            background-color: #fcf3cf;
-            border-left: 4px solid #f1c40f;
-            padding: 15px;
-            margin-bottom: 20px;
-            border-radius: 4px;
+            background: rgba(241, 196, 15, 0.1);
+            border-left: 4px solid var(--warning);
+            padding: 12px;
             font-style: italic;
-            color: #7d6608;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            color: var(--warning);
         }
 
-        ul {
-            padding-left: 20px;
+        .card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 18px;
+            margin-bottom: 20px;
         }
 
-        li {
-            margin-bottom: 8px;
-        }
-
-        .sidebar .card {
-            border-left: none;
-            border-top: 4px solid var(--accent-color);
-        }
-
-        .image-placeholder {
-            background-color: #e5e8e8;
-            height: 200px;
+        .card h2 {
+            font-size: 0.9rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-top: 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
+            gap: 8px;
+        }
+
+        .card p, .card li { font-size: 0.88rem; color: #ccc; line-height: 1.5; }
+        ul { padding-left: 18px; margin: 10px 0; }
+        li { margin-bottom: 8px; }
+
+        .tag {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            font-size: 0.7rem;
             font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        /* VIEWER AREA: CT IMAGES */
+        .viewer-container {
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+
+        .viewport {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+            border: 1px solid #1a1a1a;
+            background-image: radial-gradient(#111 1px, transparent 1px);
+            background-size: 40px 40px;
+            overflow: hidden;
+        }
+
+        #active-frame {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            transition: opacity 0.3s ease;
+        }
+
+        /* DICOM OVERLAYS */
+        .dicom-overlay {
+            position: absolute;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            pointer-events: none;
+            text-shadow: 1px 1px 2px #000;
+            line-height: 1.4;
+        }
+        .tl { top: 20px; left: 20px; }
+        .tr { top: 20px; right: 20px; text-align: right; }
+        .bl { bottom: 20px; left: 20px; }
+        .br { bottom: 20px; right: 20px; text-align: right; }
+
+        /* THUMBNAIL BAR */
+        .thumbnails {
+            height: 130px;
+            background: var(--panel-bg);
+            border-top: 1px solid var(--border);
+            display: flex;
+            padding: 10px;
+            gap: 12px;
+            overflow-x: auto;
+            align-items: center;
+        }
+
+        .thumb-box {
+            height: 100px;
+            min-width: 100px;
+            background: #111;
+            border: 2px solid transparent;
             border-radius: 4px;
-            margin-bottom: 15px;
-            border: 1px dashed #bdc3c7;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            transition: 0.2s;
         }
 
-        footer {
-            background-color: #2c3e50;
-            color: var(--white);
+        .thumb-box img { width: 100%; height: 100%; object-fit: cover; opacity: 0.5; }
+        .thumb-box:hover img { opacity: 0.8; }
+        .thumb-box.active { border-color: var(--accent); }
+        .thumb-box.active img { opacity: 1; }
+        .thumb-label {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0,0,0,0.7);
+            font-size: 9px;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            font-size: 0.9rem;
+            padding: 2px 0;
         }
 
-        footer a {
-            color: #85c1e9;
-            text-decoration: none;
+        /* FOOTER */
+        footer {
+            background: #0a0a0a;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            padding: 10px 25px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-        }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Hiatus Hernia imaging on ct [cite: 1]</h1>
-        <p>Presented by Maryadi.dr.SpRad.K.Abdomen [cite: 2]</p>
-        <p>Mitra Plumbon Hospital, Cirebon [cite: 59]</p>
+        <div class="logo-area">
+            <span>RADIOLOGY PORTAL</span>
+            <span>E-Poster Case Study</span>
+        </div>
+        <div class="patient-info">
+            MRS. C | 49Y | FEMALE | CT ABDOMEN-PELVIS | ID: MP-1977-0422
+        </div>
+        <div class="hospital-info">
+            <strong>Mitra Plumbon Hospital</strong><br>
+            Cirebon, West Java
+        </div>
     </header>
 
-    <div class="container">
-        <main>
-            <div class="alert-box">
-                "Just for reminder..are you sure only GERD and persisten pharyngitis!" [cite: 3]
-            </div>
-
-            <div class="card">
-                <h2>Kasus Pasien (Clinical Presentation)</h2>
-                <ul>
-                    <li><strong>Profil:</strong> Mrs C, 49 years old, inpatient at Mitra Plumbon hospital Cirebon[cite: 4].</li>
-                    <li><strong>Gejala Klinis:</strong> Clinical symptoms epigastric pain and vomiting[cite: 4].</li>
-                    <li><strong>Presentasi Umum:</strong> Many patients with a hiatus hernia are asymptomatic, and it is an incidental finding[cite: 12]. However, symptoms may include epigastric or chest pain, postprandial fullness, nausea and vomiting[cite: 13].</li>
-                    <li><strong>Korelasi GERD:</strong> Sometimes hiatus hernias are considered synonymous with gastro-esophageal reflux disease (GERD), but there is a poor correlation between the two conditions[cite: 14].</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>Definisi & Epidemiologi</h2>
-                <ul>
-                    <li><strong>Definisi:</strong> Hiatus hernias occur when there is herniation of abdominal contents through the esophageal hiatus of the diaphragm into the thoracic cavity[cite: 8].</li>
-                    <li><strong>Epidemiologi:</strong> The prevalence of hiatus hernia increases with age[cite: 10].</li>
-                    <li><strong>Statistik:</strong> Estimates go from about 10% under age 40 to ~30-50% in people over 50-70 years, with a slight female predilection[cite: 10].</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>Klasifikasi Tipe Hernia (Types)</h2>
-                <p>Some divide them into four types[cite: 35]:</p>
-                <ul>
-                    <li><strong>Type 1:</strong> sliding hiatal hernia (~95%)[cite: 36].</li>
-                    <li><strong>Type 2:</strong> paraesophageal hiatal hernia with the gastro-esophageal junction in a normal position[cite: 37].</li>
-                    <li><strong>Type 3:</strong> mixed or compound type, paraesophageal hiatal hernia with displaced gastro-esophageal junction[cite: 38].</li>
-                    <li><strong>Type 4:</strong> mixed or compound type hiatal hernia with additional herniation of viscera[cite: 39].</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>Karakteristik CT (CT Features)</h2>
-                <ul>
-                    <li><strong>Herniated organs:</strong> visualization of the stomach fundus (sliding hernia) or larger portions of the stomach and other viscera (paraesophageal hernia) above the diaphragm[cite: 41].</li>
-                    <li><strong>Widened esophageal hiatus:</strong> the opening in the diaphragm where the esophagus passes is widened, with separation of the diaphragmatic crura >15mm, providing a clear passage for tissue[cite: 42].</li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>Tatalaksana & Prognosis (Treatment and Prognosis)</h2>
-                <ul>
-                    <li>Symptomatic hiatus hernias, especially types 2-4, should be managed surgically[cite: 44].</li>
-                    <li>In asymptomatic individuals, especially those that are elderly or have significant comorbidities, there is increased evidence that conservative non-surgical management is preferred[cite: 45].</li>
-                </ul>
-            </div>
-
-        </main>
-
+    <div class="main-layout">
         <aside class="sidebar">
-            <div class="card">
-                <h2>CT Scan Findings</h2>
-                <div class="image-placeholder">
-                    [Area Gambar Axial CT 1]
-                </div>
-                <div class="image-placeholder">
-                    [Area Gambar Sagittal CT 2]
-                </div>
-                <p><em>Which type of hiatus hernia do you think in this case? [cite: 6]</em></p>
+            <div class="alert-box">
+                "Just for reminder..are you sure only GERD and persistent pharyngitis!"
             </div>
 
             <div class="card">
-                <h2>Komplikasi (Complications)</h2>
-                <p>A hiatus hernia containing the stomach may result in a gastric volvulus, which in turn presents as intestinal obstruction and may result in ischemia/infarction, or very rarely a tension gastrothorax, causing respiratory failure and eventual cardiac arrest[cite: 47].</p>
+                <h2>Presentation</h2>
+                <p>Pasien datang dengan <strong>epigastric pain</strong> dan <strong>muntah</strong>. Banyak kasus hernia hiatus bersifat asimtomatik (temuan insidental), namun korelasi antara hernia dan GERD seringkali tidak berjalan lurus.</p>
             </div>
 
             <div class="card">
-                <h2>Diagnosis Banding (Differential Diagnosis)</h2>
+                <h2>Definition & Epidemiology</h2>
                 <ul>
-                    <li>Retrocardiac lung abscess [cite: 49]</li>
-                    <li>Retrocardiac empyema [cite: 49]</li>
-                    <li>Epiphrenic esophageal diverticulum [cite: 49]</li>
+                    <li><strong>Definisi:</strong> Herniasi konten abdomen melalui hiatus esofagus diafragma ke dalam rongga toraks.</li>
+                    <li><strong>Prevalensi:</strong> Meningkat seiring usia (~10% usia <40, naik hingga 50% pada usia >50 tahun). Predileksi ringan pada wanita.</li>
                 </ul>
             </div>
-            
+
             <div class="card">
-                <h2>Pranala & Referensi</h2>
-                <ul style="font-size: 0.85rem; padding-left: 15px;">
-                    <li>Daly S, Kumar SS, Collings AT, et al. SAGES guidelines for the surgical treatment of hiatal hernias. Surg Endosc. 2024;38(9):4765-4775. [cite: 50]</li>
-                    <li>Shahsavari D, Smith MS, Malik Z, Parkman HP. Hiatal hernias associated with acid reflux: size larger than 2 cm matters. [cite: 52]</li>
-                    <li>Kim J, Hiura GT, Oelsner EC, et al. Hiatal hernia prevalence and natural history on non-contrast CT in the Multi-Ethnic Study of Atherosclerosis (MESA). [cite: 54]</li>
+                <h2>Classification (SAGES)</h2>
+                <p>Terbagi menjadi 4 tipe utama:</p>
+                <ul style="list-style: none; padding: 0;">
+                    <li><span class="tag">Type 1</span> <strong>Sliding Hiatal Hernia</strong> (Kasus tersering ~95%).</li>
+                    <li><span class="tag">Type 2</span> Paraesophageal (GE junction posisi normal).</li>
+                    <li><span class="tag">Type 3</span> Mixed (Paraesophageal dengan GE junction bergeser).</li>
+                    <li><span class="tag">Type 4</span> Mixed dengan tambahan herniasi organ visera lain.</li>
                 </ul>
-                <p style="font-size: 0.85rem;"><strong>Video Links:</strong><br>
-                <a href="https://youtu.be/j8CT7K_7rX0?si=1PIPGlyjVqPezOu6" target="_blank">Edukasi Video 1 [cite: 57]</a><br>
-                <a href="https://youtu.be/XK8GbbOfYzM?si=zOFLywxafLz7BTOM" target="_blank">Edukasi Video 2 [cite: 58]</a></p>
+            </div>
+
+            <div class="card">
+                <h2>CT Radiographic Features</h2>
+                <p>Visualisasi fundus lambung atau organ visera di atas diafragma. Karakteristik kunci adalah pelebaran hiatus esofagus dengan <strong>separasi crura diafragma >15mm</strong>.</p>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--danger);">
+                <h2>Complications</h2>
+                <p>Berisiko menyebabkan <strong>Gastric Volvulus</strong>, obstruksi usus, iskemia, infark, hingga <em>tension gastrothorax</em> yang dapat memicu gagal napas mendadak.</p>
+            </div>
+
+            <div class="card">
+                <h2>Management</h2>
+                <p>Simtomatik (terutama tipe 2-4) memerlukan <strong>tindakan bedah</strong>. Pada pasien asimtomatik atau lansia dengan komorbiditas berat, manajemen konservatif lebih diutamakan.</p>
+            </div>
+
+            <div class="card">
+                <h2>References</h2>
+                <p style="font-size: 0.75rem;">
+                    1. Daly S, et al. SAGES Guidelines, Surg Endosc 2024.<br>
+                    2. Shahsavari D, et al. Dis Esophagus 2022.<br>
+                    3. Kim J, et al. BMJ Open Gastroenterol 2021.
+                </p>
+                <div style="margin-top:10px;">
+                    <a href="https://youtu.be/j8CT7K_7rX0" target="_blank">🎥 Video Edukasi 1</a> | 
+                    <a href="https://youtu.be/XK8GbbOfYzM" target="_blank">🎥 Video Edukasi 2</a>
+                </div>
             </div>
         </aside>
+
+        <main class="viewer-container">
+            <div class="viewport" id="viewport">
+                <div class="dicom-overlay tl">
+                    PATIENT NAME: MRS. C<br>
+                    PATIENT ID: 19770422<br>
+                    SEX: F<br>
+                    AGE: 49Y
+                </div>
+                <div class="dicom-overlay tr">
+                    MITRA PLUMBON HOSPITAL<br>
+                    CT 64 SLICE<br>
+                    KVP: 120 / MAS: 250<br>
+                    THICKNESS: 1.25mm
+                </div>
+                <div class="dicom-overlay bl">
+                    STUDY: ABDOMEN CONTRAST<br>
+                    DATE: 2026-03-31<br>
+                    TIME: 14:30:12
+                </div>
+                <div class="dicom-overlay br" id="view-label">
+                    VIEW: AXIAL RECON<br>
+                    W: 400 L: 40<br>
+                    ZOOM: 100%
+                </div>
+
+                <img id="active-frame" src="https://via.placeholder.com/1000x800/000000/00b4d8?text=SILAKAN+PILIH+GAMBAR+DI+BAWAH" alt="PACS Main View">
+            </div>
+
+            <div class="thumbnails">
+                <div class="thumb-box active" onclick="changeImage(this, 'AXIAL VIEW - HIATUS OPENING', 'AXIAL VIEW')">
+                    <img src="https://via.placeholder.com/200?text=AXIAL+1" alt="Axial">
+                    <div class="thumb-label">AXIAL 1</div>
+                </div>
+                <div class="thumb-box" onclick="changeImage(this, 'CORONAL RECON - HERNIA POSITION', 'CORONAL VIEW')">
+                    <img src="https://via.placeholder.com/200?text=CORONAL" alt="Coronal">
+                    <div class="thumb-label">CORONAL</div>
+                </div>
+                <div class="thumb-box" onclick="changeImage(this, 'SAGITTAL RECON - HIATUS WIDENING', 'SAGITTAL VIEW')">
+                    <img src="https://via.placeholder.com/200?text=SAGITTAL" alt="Sagittal">
+                    <div class="thumb-label">SAGITTAL</div>
+                </div>
+                <div class="thumb-box" onclick="changeImage(this, '3D VOLUME RENDERING', '3D RECON')">
+                    <img src="https://via.placeholder.com/200?text=3D+RECON" alt="3D">
+                    <div class="thumb-label">3D VIEW</div>
+                </div>
+                <div class="thumb-box" onclick="changeImage(this, 'DIAGRAM - HERNIA TYPES 1-4', 'DIAGRAM')">
+                    <img src="https://via.placeholder.com/200?text=DIAGRAM" alt="Diagram">
+                    <div class="thumb-label">DIAGRAM</div>
+                </div>
+            </div>
+        </main>
     </div>
 
     <footer>
-        <div class="container" style="display: block;">
-            <p>Courtesy with Mrs. C, dr.Bungsu.SpPD and Mitra Plumbon Hospital[cite: 59].</p>
-            <p>Thanks fully for our radiografers: Mr. Ino Hadiwinata, Mr Lalan Permana Herlambang, Mr. Ardi Pratama Oktafiansyah and all[cite: 59].</p>
-            <p>&copy; 2026 Portal E-Poster Radiologi. All rights reserved.</p>
-        </div>
+        <div>Case by: <strong>dr. Maryadi, Sp.Rad(K)Abdomen</strong> | Consultant Radiologist</div>
+        <div>Courtesy: dr. Bungsu, Sp.PD & Radiographers (Ino H, Lalan P, Ardi P)</div>
     </footer>
 
+    <script>
+        function changeImage(element, desc, viewType) {
+            // Update Main Image (Ganti src ini dengan path gambar aslimu)
+            const mainImg = document.getElementById('active-frame');
+            const thumbImg = element.getElementsByTagName('img')[0].src;
+            
+            mainImg.style.opacity = 0;
+            setTimeout(() => {
+                mainImg.src = thumbImg;
+                mainImg.style.opacity = 1;
+            }, 200);
+
+            // Update DICOM Overlay Label
+            document.getElementById('view-label').innerHTML = `VIEW: ${viewType}<br>W: 400 L: 40<br>ZOOM: 100%`;
+
+            // Update Active State Thumbnail
+            document.querySelectorAll('.thumb-box').forEach(box => box.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
 </body>
 </html>
