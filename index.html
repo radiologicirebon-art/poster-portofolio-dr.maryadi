@@ -3,307 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise PACS Viewer - Hiatus Hernia Stack</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Hiatus Hernia - Laporan Khusus Portal Radiologi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --pacs-bg: #000000;
-            --panel-bg: #111111;
-            --accent: #00d2ff;
-            --border: #222222;
-            --text-main: #e0e0e0;
-            --dicom-green: #00ff00;
+            --cnn-red: #e11f1c;
+            --cnn-black: #000000;
+            --cnn-grey: #f4f4f4;
+            --text-dark: #222;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--pacs-bg);
-            color: var(--text-main);
+            font-family: 'Public Sans', sans-serif;
+            background-color: #fff;
+            color: var(--text-dark);
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            line-height: 1.6;
         }
 
-        /* HEADER ALREADY PACS STYLE */
-        header {
-            background: var(--panel-bg);
-            border-bottom: 1px solid var(--border);
-            padding: 5px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 60px;
-            z-index: 100;
+        /* TOP NAV */
+        .top-nav {
+            background: var(--cnn-black);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .top-nav span { color: var(--cnn-red); }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
         }
 
-        .patient-data {
-            font-family: 'Roboto Mono', monospace;
-            border: 1px solid var(--accent);
-            padding: 4px 15px;
-            color: var(--accent);
-            font-size: 0.8rem;
-            border-radius: 3px;
+        /* HEADER BERITA */
+        .article-header {
+            margin-bottom: 30px;
         }
-
-        /* LAYOUT MAIN */
-        .main-workspace {
-            display: grid;
-            grid-template-columns: 300px 1fr 220px;
-            flex-grow: 1;
-            overflow: hidden;
-        }
-
-        /* LEFT SIDEBAR: CASE INFO */
-        .case-info {
-            background: var(--panel-bg);
-            border-right: 1px solid var(--border);
-            padding: 15px;
-            overflow-y: auto;
-            font-size: 0.85rem;
-        }
-
-        .case-card {
-            background: #1a1a1a;
-            border: 1px solid var(--border);
-            padding: 12px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-        }
-
-        .case-card h3 {
-            font-size: 0.75rem;
-            color: var(--accent);
+        .category {
+            color: var(--cnn-red);
             text-transform: uppercase;
-            margin-top: 0;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 5px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .article-header h1 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 0 0 15px 0;
+            font-weight: 900;
+        }
+        .author-date {
+            font-size: 0.9rem;
+            color: #666;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
         }
 
-        /* CENTER: INTERACTIVE VIEWER */
-        .viewer-container {
-            position: relative;
-            background: #000;
+        /* LAYOUT UTAMA */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+
+        /* FOTO STORY (Scrollable Gallery) */
+        .photo-story {
+            background: #111;
+            padding: 30px 0;
+            margin: 40px 0;
+            color: white;
+        }
+        .photo-story-title {
+            padding-left: 20px;
+            border-left: 5px solid var(--cnn-red);
+            margin-bottom: 20px;
+        }
+        .gallery-wrapper {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
+            overflow-x: auto;
+            gap: 15px;
+            padding: 0 20px 20px 20px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: thin;
         }
+        .gallery-wrapper::-webkit-scrollbar { height: 8px; }
+        .gallery-wrapper::-webkit-scrollbar-thumb { background: var(--cnn-red); }
 
-        .viewer-container:hover {
-            cursor: ns-resize; /* Menandakan bisa scroll atas-bawah */
+        .photo-card {
+            min-width: 600px;
+            scroll-snap-align: start;
+            background: #222;
         }
-
-        #main-viewport {
-            max-width: 98%;
-            max-height: 98%;
+        .photo-card img {
+            width: 100%;
+            height: 400px;
             object-fit: contain;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
-
-        /* DICOM OVERLAYS */
-        .overlay {
-            position: absolute;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 11px;
-            color: rgba(255,255,255,0.7);
-            pointer-events: none;
-            text-shadow: 1px 1px 2px #000;
-            z-index: 10;
-        }
-        .tl { top: 20px; left: 20px; }
-        .tr { top: 20px; right: 20px; text-align: right; }
-        .bl { bottom: 20px; left: 20px; }
-        .br { bottom: 20px; right: 20px; text-align: right; color: var(--dicom-green); }
-
-        /* RIGHT: THUMBNAIL STACK */
-        .stack-navigator {
-            background: var(--panel-bg);
-            border-left: 1px solid var(--border);
-            overflow-y: auto;
-            padding: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .thumb-box {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 1/1;
             background: #000;
-            border: 2px solid transparent;
-            cursor: pointer;
-            transition: 0.2s;
-            border-radius: 3px;
+        }
+        .photo-caption {
+            padding: 15px;
+            font-size: 0.9rem;
         }
 
-        .thumb-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.5;
+        /* CONTENT */
+        .content-body p {
+            font-size: 1.15rem;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .content-body h2 {
+            font-size: 1.8rem;
+            margin-top: 40px;
+            border-left: 5px solid var(--cnn-red);
+            padding-left: 15px;
         }
 
-        .thumb-box.active { border-color: var(--accent); }
-        .thumb-box.active img { opacity: 1; }
-        
-        .slice-label {
-            position: absolute;
-            bottom: 2px;
-            right: 5px;
-            font-size: 9px;
-            color: #fff;
-            background: rgba(0,0,0,0.5);
-            padding: 0 3px;
+        /* SIDEBAR */
+        .sidebar h3 {
+            background: var(--cnn-black);
+            color: white;
+            padding: 8px 15px;
+            font-size: 1rem;
+            margin-top: 0;
         }
-
-        /* SCROLLBAR */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
-
-        footer {
-            height: 25px;
-            background: #000;
-            font-size: 0.7rem;
-            color: #555;
+        .trending-item {
             display: flex;
-            align-items: center;
-            padding: 0 20px;
-            border-top: 1px solid var(--border);
+            gap: 15px;
+            margin-bottom: 20px;
+            text-decoration: none;
+            color: inherit;
+        }
+        .trending-num {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #ddd;
+        }
+        .trending-text {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid { grid-template-columns: 1fr; }
+            .article-header h1 { font-size: 2rem; }
+            .photo-card { min-width: 90%; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div>
-            <strong style="color: #fff;">MITRA PLUMBON</strong> 
-            <span style="color: var(--accent); font-weight: 300; margin-left: 10px;">RADIOLOGY WORKSTATION</span>
-        </div>
-        <div class="patient-data">
-            ID: A768792 | NAME: CUPINAH BT SUMAN, NY | STUDY: CT ABDOMEN + CONTRAST
-        </div>
-        <div style="font-size: 0.7rem; text-align: right; color: #888;">
-            INSTITUTION: RS MITRA PLUMBON<br>
-            PHYSICIAN: dr. Maryadi, Sp.Rad(K)
-        </div>
-    </header>
+    <nav class="top-nav">
+        RADIOLOGI<span>INDONESIA</span>
+    </nav>
 
-    <div class="main-workspace">
-        <aside class="case-info">
-            <div class="case-card" style="border-top: 2px solid var(--accent);">
-                <h3>Case Presentation</h3>
-                <p>Pasien Ny. C, 49 tahun dengan gejala nyeri epigastrium dan muntah. Pemeriksaan CT Scan dilakukan untuk evaluasi mendalam.</p>
+    <div class="container">
+        <header class="article-header">
+            <span class="category">Laporan Khusus</span>
+            <h1>Mengenal Hiatus Hernia: Kasus Langka Ny. C di RS Mitra Plumbon</h1>
+            <div class="author-date">
+                Oleh: <strong>dr. Maryadi, Sp.Rad(K).Abdomen</strong> — Selasa, 31 Maret 2026
             </div>
+        </header>
 
-            <div class="case-card">
-                <h3>Imaging Findings</h3>
-                <p>Herniasi isi abdomen melalui hiatus esofagus diafragma ke dalam rongga dada. Terdeteksi adanya <strong>separasi crura diafragma >15mm</strong>.</p>
-            </div>
+        <div class="main-grid">
+            <article class="content-body">
+                <p><strong>CIREBON</strong> — Seorang pasien wanita berusia 49 tahun (Ny. C) dilaporkan menjalani perawatan intensif di RS Mitra Plumbon Cirebon setelah mengeluhkan nyeri epigastrium yang persisten disertai muntah.</p>
+                
+                <p>Berdasarkan hasil pemindaian CT Scan, tim medis menemukan adanya kondisi <em>Hiatus Hernia</em>, sebuah kondisi di mana isi abdomen menonjol keluar melalui hiatus esofagus diafragma menuju rongga toraks.</p>
 
-            <div class="case-card">
-                <h3>Classification</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><span style="color:var(--accent)">●</span> Type 1: Sliding (95%)</li>
-                    <li><span style="color:var(--accent)">●</span> Type 2: Paraesophageal</li>
-                    <li><span style="color:var(--accent)">●</span> Type 3-4: Mixed/Complex</li>
-                </ul>
-            </div>
+                <h2>Benarkah Hanya GERD?</h2>
+                <p>"Hanya untuk pengingat.. apakah Anda yakin ini hanya GERD dan faringitis persisten?" ungkap dr. Maryadi. Ia menekankan bahwa korelasi antara hernia hiatus dan penyakit refluks gastroesofagus (GERD) seringkali tidak sinkron, sehingga pemeriksaan radiologi menjadi krusial.</p>
 
-            <div class="case-card" style="border-top: 2px solid red;">
-                <h3>Warning</h3>
-                <p style="color: #ff9999;">Risiko Gastric Volvulus dan obstruksi usus jika tidak ditangani tepat waktu.</p>
-            </div>
-        </aside>
+                <h2>Tipe dan Klasifikasi</h2>
+                <p>Secara medis, hernia ini terbagi menjadi empat tipe utama. Tipe 1 atau <em>Sliding Hiatal Hernia</em> mencakup 95% kasus. Sementara tipe 2 hingga 4 melibatkan komplikasi yang lebih serius di mana bagian perut atau organ visera lainnya berpindah posisi secara permanen di atas diafragma.</p>
+            </article>
 
-        <main class="viewer-container" id="scroll-area">
-            <div class="overlay tl">CUPINAH BT SUMAN<br>F 49Y<br>ID: A768792</div>
-            <div class="overlay tr">CT WHOLE ABDOMEN<br>Se: 1 / Im: <span id="current-slice-label">1</span><br>Thk: 1.25mm</div>
-            <div class="overlay bl">Study Date: 08/12/2025<br>Study Time: 14:20:00</div>
-            <div class="overlay br" id="dicom-tech-info">W: 400 L: 40<br>ZOOM: 100%<br>LOC: -120.5mm</div>
-
-            <img id="main-viewport" src="https://via.placeholder.com/800?text=LOADING+STACK..." alt="PACS View">
-        </main>
-
-        <aside class="stack-navigator" id="thumb-stack">
+            <aside class="sidebar">
+                <h3>TERPOPULER</h3>
+                <a href="#" class="trending-item">
+                    <div class="trending-num">1</div>
+                    <div class="trending-text">Bahaya Gastric Volvulus: Komplikasi Fatal Hernia Hiatus</div>
+                </a>
+                <a href="#" class="trending-item">
+                    <div class="trending-num">2</div>
+                    <div class="trending-text">Mengapa Separasi Crura Diafragma >15mm Jadi Indikator Kunci?</div>
+                </a>
+                <a href="#" class="trending-item">
+                    <div class="trending-num">3</div>
+                    <div class="trending-text">Manajemen Operatif vs Konservatif: Mana yang Terbaik?</div>
+                </a>
+                
+                <div style="background: #f4f4f4; padding: 20px; margin-top: 30px;">
+                    <h4 style="margin-top:0">Info RS</h4>
+                    <p style="font-size: 0.85rem;"><strong>RS Mitra Plumbon</strong><br>Jl. Raya Plumbon KM 11, Cirebon.</p>
+                </div>
             </aside>
+        </div>
     </div>
 
-    <footer>
-        Case by dr. Maryadi, Sp.Rad(K) | Courtesy: dr. Bungsu, Sp.PD | Team Radiografer RS Mitra Plumbon
+    <section class="photo-story">
+        <div class="container">
+            <div class="photo-story-title">
+                <h2 style="margin:0">FOTO STORY: Hasil CT Scan Ny. C</h2>
+                <p>Scroll horizontal untuk melihat seluruh rangkaian slide (60+ Slices)</p>
+            </div>
+        </div>
+        
+        <div class="gallery-wrapper" id="photo-gallery">
+            </div>
+    </section>
+
+    <div class="container">
+        <div class="content-body" style="max-width: 710px;">
+            <h2>Komplikasi dan Risiko</h2>
+            <p>Jika tidak ditangani, kondisi ini dapat menyebabkan iskemia atau infark pada lambung, bahkan dalam kasus ekstrem dapat memicu <em>tension gastrothorax</em> yang berakibat henti jantung.</p>
+            
+            <p style="background: #eee; padding: 20px; border-radius: 5px; font-size: 0.9rem;">
+                <strong>Referensi Medis:</strong><br>
+                1. SAGES Guidelines (2024)<br>
+                2. Shahsavari D, et al. Dis Esophagus (2022)<br>
+                3. Kim J, et al. BMJ Open Gastroenterol (2021)
+            </p>
+        </div>
+    </div>
+
+    <footer style="background: #000; color: #fff; padding: 40px 0; margin-top: 50px; text-align: center; font-size: 0.8rem;">
+        <p>&copy; 2026 Portal Radiologi Indonesia. Semua konten berdasarkan kasus medis nyata RS Mitra Plumbon.</p>
     </footer>
 
     <script>
-        // 1. DATA GAMBAR (Masukkan link gambar asli Anda di sini)
-        // Jika file gambar Anda bernama slice1.jpg, slice2.jpg, dst, 
-        // Anda bisa mengisi loop ini dengan nama file tersebut.
-        const totalSlices = 60; // Sesuai jumlah gambar di PDF Anda
-        const images = [];
-        
-        for(let i = 1; i <= totalSlices; i++) {
-            // Ganti URL ini dengan lokasi folder gambar Anda
-            images.push({
-                url: `https://via.placeholder.com/1000x1000/000000/00d2ff?text=SLICE+${i}`, 
-                id: i
-            });
-        }
+        // Simulasi database 60 gambar dari image.pdf
+        const gallery = document.getElementById('photo-gallery');
+        const totalImages = 60; 
 
-        let currentIndex = 0;
-        const viewport = document.getElementById('main-viewport');
-        const scrollArea = document.getElementById('scroll-area');
-        const sliceLabel = document.getElementById('current-slice-label');
-        const thumbStack = document.getElementById('thumb-stack');
-
-        // 2. GENERATE THUMBNAILS
-        images.forEach((img, index) => {
-            const box = document.createElement('div');
-            box.className = `thumb-box ${index === 0 ? 'active' : ''}`;
-            box.id = `thumb-${index}`;
-            box.innerHTML = `
-                <img src="${img.url}" alt="Slice ${img.id}">
-                <span class="slice-label">#${img.id}</span>
+        for (let i = 1; i <= totalImages; i++) {
+            const card = document.createElement('div');
+            card.className = 'photo-card';
+            card.innerHTML = `
+                <img src="https://via.placeholder.com/800x600/000000/ffffff?text=CT+SLICE+${i}" alt="Slice ${i}">
+                <div class="photo-caption">
+                    <strong>SLICE #${i}</strong> - Visualisasi area diafragma dan hiatus esofagus pada potongan axial/coronal.
+                </div>
             `;
-            box.onclick = () => updateImage(index);
-            thumbStack.appendChild(box);
-        });
-
-        // 3. FUNGSI UPDATE GAMBAR
-        function updateImage(index) {
-            if(index < 0 || index >= images.length) return;
-            
-            currentIndex = index;
-            viewport.src = images[currentIndex].url;
-            sliceLabel.innerText = images[currentIndex].id;
-
-            // Update UI Active
-            document.querySelectorAll('.thumb-box').forEach(t => t.classList.remove('active'));
-            const activeThumb = document.getElementById(`thumb-${index}`);
-            activeThumb.classList.add('active');
-
-            // Auto-scroll thumbnails agar yang aktif selalu terlihat
-            activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            gallery.appendChild(card);
         }
-
-        // 4. FUNGSI SCROLLING PER IMAGE (PENTING)
-        scrollArea.addEventListener('wheel', (e) => {
-            e.preventDefault(); // Mencegah halaman utama ikut ter-scroll
-            
-            if (e.deltaY > 0) {
-                // Scroll Down -> Next Slice
-                if(currentIndex < images.length - 1) updateImage(currentIndex + 1);
-            } else {
-                // Scroll Up -> Previous Slice
-                if(currentIndex > 0) updateImage(currentIndex - 1);
-            }
-        }, { passive: false });
-
-        // Load gambar pertama
-        updateImage(0);
-
     </script>
 </body>
 </html>
